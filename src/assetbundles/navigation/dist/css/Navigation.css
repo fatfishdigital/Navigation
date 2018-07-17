@@ -1,0 +1,145 @@
+/**
+ * Navigation plugin for Craft CMS
+ *
+ * Navigation CSS
+ *
+ * @author    Fatfish
+ * @copyright Copyright (c) 2018 Fatfish
+ * @link      https://fatfish.com.au
+ * @package   Navigation
+ * @since     1.0.0
+ */
+
+
+
+pre,code {
+    font-size: 12px;
+}
+
+pre {
+    width: 100%;
+    overflow: auto;
+}
+
+small {
+    font-size: 90%;
+}
+
+small code {
+    font-size: 11px;
+}
+
+.placeholder {
+    outline: 1px dashed #4183C4;
+}
+
+.mjs-nestedSortable-error {
+    background: #fbe3e4;
+    border-color: transparent;
+}
+
+#tree {
+    width: 550px;
+    margin: 0;
+}
+
+ol {
+    max-width: 450px;
+    padding-left: 25px;
+}
+
+ol.sortable,ol.sortable ol {
+    list-style-type: none;
+}
+
+.sortable li div {
+    border: 1px solid #d4d4d4;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    cursor: move;
+    border-color: #D4D4D4 #D4D4D4 #BCBCBC;
+    margin: 0;
+    padding: 3px;
+}
+
+li.mjs-nestedSortable-collapsed.mjs-nestedSortable-hovering div {
+    border-color: #999;
+}
+
+.disclose, .expandEditor {
+    cursor: pointer;
+    width: 20px;
+    display: none;
+}
+
+.sortable li.mjs-nestedSortable-collapsed > ol {
+    display: none;
+}
+
+.sortable li.mjs-nestedSortable-branch > div > .disclose {
+    display: inline-block;
+}
+
+.sortable span.ui-icon {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.menuDiv {
+    background: #EBEBEB;
+    height: 30px;
+}
+
+.menuEdit {
+    background: #FFF;
+}
+
+.itemTitle {
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.deleteMenu {
+    float: right;
+    cursor: pointer;
+}
+
+
+p,ol,ul,pre,form {
+    margin-top: 0;
+    margin-bottom: 1em;
+}
+
+dl {
+    margin: 0;
+}
+
+dd {
+    margin: 0;
+    padding: 0 0 0 1.5em;
+}
+
+code {
+    background: #e5e5e5;
+}
+
+input {
+    vertical-align: text-bottom;
+}
+
+.notice {
+    color: #c33;
+}
+.menuName {
+    height: 33%;
+    background-color: #d4d4d4;
+    width: 26%;
+}
+label.namelabel {
+    position: relative;
+    top: 10px;
+    text-align: center;
+    left: 20px;
+}

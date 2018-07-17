@@ -1,0 +1,32 @@
+<div class="{% if menucss.wrapperClass is defined %} {{ menucss.wrapperClass }} {% endif %}">
+<ul class="{% if menucss.ulClass is defined %} {{ menucss.ulClass }}{% endif %}">
+
+   {% if MenuNodes is defined  %}
+        {% if MenuNodes is iterable %}
+            {% for MenuNode in MenuNodes %}
+                   {% if MenuNode.ParenNode == (0)  %}
+
+                       {% if craft.Navigation.renderChildren(MenuNode.NodeId) is iterable %}
+                           <li class="{% if menucss.liClass is defined %} {{ menuCss.liClass }} {% endif %}">
+                               <a href="#">{{ MenuNode.NodeName }}</a>
+                               <ul>
+                                  {% for childrenMenu in  craft.Navigation.renderChildren(MenuNode.NodeId) %}
+                                      <li>
+                                          {{ childrenMenu.NodeName }}
+                                      </li>
+                                   {% endfor %}
+
+                               </ul>
+                           </li>
+                        {% endif %}
+
+                    {% endif %}
+            {% endfor %}
+            {% endif %}
+{% else %}
+sdfsfsdfsdfsdf
+    {% endif %}
+
+</ul>
+
+</div>

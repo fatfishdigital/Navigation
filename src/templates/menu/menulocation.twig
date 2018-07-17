@@ -1,0 +1,91 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Navigation plugin for Craft CMS 3.x
+ *
+ * Navigation index.twig
+ *
+ * @author    Fatfish
+ * @copyright Copyright (c) 2018 Fatfish
+ * @link      https://fatfish.com.au
+ * @package   Navigation
+ * @since     1.0.0
+ */
+#}
+
+{% extends "_layouts/cp" %}
+{% import "_includes/forms" as forms %}
+{% set selectedTab = 'menulocation' %}
+{% do view.registerAssetBundle("fatfish\\navigation\\assetbundles\\navigation\\NavigationAsset") %}
+{% do view.registerAssetBundle("fatfish\\navigation\\assetbundles\\indexcpsection\\IndexCPSectionAsset") %}
+
+
+{% set docsUrl = "https://github.com/https://github.com/fatfishdigital/navigation/blob/master/README.md" %}
+
+
+{% set title = "Navigation" %}
+
+
+{% set pluginCpUrl = url('navigation') %}
+
+
+{% set iconUrl = view.getAssetManager().getPublishedUrl('@fatfish/navigation/assetbundles/indexcpsection/dist', true) ~ '/img/Index-icon.svg' %}
+
+{% set extraPageHeaderHtml %}
+    <div class="buttons">
+        <a href="{{ pluginCpUrl }}" class="btn submit add icon">{{ "Click Me!"|t('navigation') }}</a>
+    </div>
+{% endset %}
+{% set tabs = {
+    editmenu: { label: "Menu" | t('Navigation'), url: url('navigation') },
+    menulocation: { label: "Manage Locations" | t('Navigation'), url: url('/admin/menulocation') },
+}
+%}
+
+{% set content %}
+<div class="main-content">
+<div id="container-container">
+    <div id="content">
+        <table class="data fullwidth">
+            <thead>
+            <tr>
+
+                <th scope="col" data-attribute="title" class="ordered desc">Menu Name</th>
+                <th scope="col" data-attribute="postDate" class="orderable">Action</th>
+
+            </thead>
+            <tbody>
+            {% for Menu in AllMenu %}
+                <tr>
+                    <td>
+                        <span>{{ Menu.MenuName }}</span>
+                    </td>
+                    <td>
+                        <a class="delete icon DeleteNav" data-id="{{ Menu.id }}" title="{{ Menu.MenuName }}"></a>
+                        <a class="edit icon EditNav" data-id="{{ Menu.id }}" href="navigation/edit/{{ Menu.id }}"></a>
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+            </tbody>
+
+
+        </table>
+
+    </div>
+</div>
+    <script id="DeleteMenu" type="text/template">
+        <div class="body">
+            Are you sure you want to delete ?
+        </div>
+        <footer class="footer">
+            <div class="buttons right">
+                <input type="button" class="btn submit" value="{{ 'Delete'|t('app') }}" id="MenuBtn">
+            </div>
+        </footer>
+
+    </script>
+</div>
+
+{% endset %}

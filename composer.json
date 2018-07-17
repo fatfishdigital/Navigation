@@ -1,0 +1,43 @@
+{
+    "name": "fatfish/navigation",
+    "description": "Craft navigation for the website.",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "navigation"
+    ],
+    "support": {
+        "docs": "https://github.com/https://github.com/fatfishdigital/navigation/blob/master/README.md",
+        "issues": "https://github.com/https://github.com/fatfishdigital/navigation/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fatfish",
+            "homepage": "https://fatfish.com.au"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0-RC1"
+    },
+    "autoload": {
+        "psr-4": {
+          "fatfish\\navigation\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Navigation",
+        "handle": "navigation",
+        "hasCpSettings": true,
+        "hasCpSection": true,
+        "changelogUrl": "https://raw.githubusercontent.com/https://github.com/fatfishdigital/navigation/master/CHANGELOG.md",
+        "components": {
+            "navigationService": "fatfish\\navigation\\services\\NavigationService"
+        },
+        "class": "fatfish\\navigation\\Navigation"
+    }
+}

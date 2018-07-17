@@ -1,0 +1,181 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Navigation plugin for Craft CMS 3.x
+ *
+ * Navigation index.twig
+ *
+ * @author    Fatfish
+ * @copyright Copyright (c) 2018 Fatfish
+ * @link      https://fatfish.com.au
+ * @package   Navigation
+ * @since     1.0.0
+ */
+#}
+
+{% extends "_layouts/cp" %}
+{% import "_includes/forms" as forms %}
+{% set selectedTab= 'editmenu' %}
+{% do view.registerAssetBundle("fatfish\\navigation\\assetbundles\\navigation\\NavigationAsset") %}
+{% do view.registerAssetBundle("fatfish\\navigation\\assetbundles\\indexcpsection\\IndexCPSectionAsset") %}
+
+ {#{% set basePadding = (context == 'index' ? 20 + (showCheckboxes ? 7 : 0) + (structureEditable ? 14 : 0) : 7) %}#}
+    {% set padding = craft.app.locale.getOrientation() == 'ltr' ? 'left' : 'right' -%}
+{# Link for the ? icon at the bottom of the page #}
+{% set docsUrl = "https://github.com/https://github.com/fatfishdigital/navigation/blob/master/README.md" %}
+
+{# The title of this CP section #}
+{% set title = "Navigation" %}
+
+{# The URL to this plugin's base CP section #}
+{% set pluginCpUrl = url('navigation') %}
+
+{# Get a URL to an image in our AssetBundle #}
+{% set iconUrl = view.getAssetManager().getPublishedUrl('@fatfish/navigation/assetbundles/indexcpsection/dist', true) ~ '/img/Index-icon.svg' %}
+
+{# Content that should appear in the page header#}
+{% set extraPageHeaderHtml %}
+    <div class="buttons">
+        <a href="{{ pluginCpUrl }}" class="btn submit add icon">{{ "Click Me!"|t('navigation') }}</a>
+    </div>
+{% endset %}
+{% set tabs = {
+    editmenu: { label: "Menu" | t('Navigation'), url: url('navigation') },
+    menulocation: { label: "Manage Locations" | t('Navigation'), url: url('/admin/menulocation') },
+} %}
+
+{# The content of the CP Section#}
+{% set content %}
+{% if MenuData is defined %}
+
+        {% if MenuData is iterable %}
+
+            {% set menuid=MenuData[0].id %}
+            {% set menuname=MenuData[0].MenuName %}
+            {% set MenuHtml = MenuData[0].MenuHtml %}
+            {% endif %}
+
+
+
+    {% else %}
+        {% set menuid='' %}
+        {% set menuname=''%}
+        {% set MenuHtml = '' %}
+    {% endif %}
+
+   <div id="main-content">
+                <div class="sidebar" style="width: 400px;">
+                    <div id="button-container">
+                        <div class="btngroup submit">
+                            <a class="btn submit add icon" id="NewMenu">Create Menu</a>
+
+                        </div>
+                    </div>
+                    <br>
+            <div class="back">
+                <div class="pane">
+                    <h2>Pages</h2>
+                    <hr>
+                    <div class="settings">
+                        <button class="btn submit add icon" id="addpage">Page</button>
+                        <button class="btn submit add icon" id="customPage">custom page</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div id="content-container">
+            <div id="content">
+                <div class="menuName">
+                    <label class="namelabel">{{ menuname }}</label>
+                    <input type="text" name="menuname" value="{{ menuname }}" id="menuname" hidden/>
+                     <input type="text" name="menuname" value="{{ menuid }}" id="menuid" hidden/>
+                </div>
+                <div class="tableview">
+
+
+                    <ol class="sortable ui-sortable mjs-nestedSortable-branch mjs-nestedSortable-expanded" id="navigation-menu">
+
+                        {{ MenuHtml | raw}}
+
+                    </ol>
+
+
+                </div>
+
+            </div>
+            <div class="settings" style="padding-left: 10px">
+                <a class="btn submit fa-save" id="savemenu">Save Menu</a>
+            </div>
+
+        </div>
+    </div>
+    <script id="form_element" type="text/template">
+        <div class="body">
+            <div class="field" id="node__url-name">
+                <div class="heading">
+                    <label class="required" for="name">{{ 'Name' }}</label>
+                </div>
+                <div class="input ltr">
+                    <input class="text node-name fullwidth" type="text" id="name" autocomplete="off">
+                </div>
+            </div>
+            <div class="field" id="node__url-url">
+                <div class="heading">
+                    <label class="required" for="url">{{ 'URL' }}</label>
+                </div>
+                <div class="input ltr">
+                    <input class="text node-url fullwidth" type="text" id="url" name="url" autocomplete="off">
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="buttons right">
+                            <input type="submit" class="btn submit" value="{{ 'Add'|t('app') }}" id="BtnCustomUrl">
+            </div>
+        </footer>
+
+    </script>
+
+    <script id="create_menu" type="text/template">
+        <div class="body">
+            <div class="field" id="node__url-name">
+                <div class="heading">
+                    <label class="required" for="name">{{ 'New Menu Name' }}</label>
+                </div>
+                <div class="input ltr">
+                    <input class="text node-name fullwidth" type="text" id="name" autocomplete="off" required>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="buttons right">
+                <input type="submit" class="btn submit" value="{{ 'Add'|t('app') }}" id="MenuBtn">
+            </div>
+        </footer>
+
+    </script>
+    {% js %}
+
+        $('ol.sortable').nestedSortable({
+        forcePlaceholderSize: true,
+        handle: 'div',
+        helper:    'clone',
+        items: 'li',
+        opacity: .6,
+        placeholder: 'placeholder',
+        revert: 250,
+        tabSize: 25,
+        tolerance: 'pointer',
+        toleranceElement: '> div',
+        maxLevels: 4,
+        isTree: true,
+        expandOnHover: 700,
+        startCollapsed: false
+        });
+    {% endjs %}
+
+
+
+{% endset %}
