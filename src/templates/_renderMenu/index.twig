@@ -1,6 +1,30 @@
+{% import _self as macros %}
+{% macro menu(node) %}
+    {% import _self as macros %}
+    {% set Grandchildren = craft.Navigation.renderChildren(node) %}
+    {% if Grandchildren | length > (0) %}
+        <ul>
+            {% for grandchildren in Grandchildren  %}
+
+                <li>
+                    {{ grandchildren.NodeName }}
+                    {{ macros.menu(grandchildren.NodeId) }}
+
+                </li>
+            {% endfor %}
+
+        </ul>
+
+
+    {% endif %}
+
+{% endmacro %}
+
+
+
+
 <div class="{% if menucss.wrapperClass is defined %} {{ menucss.wrapperClass }} {% endif %}">
 <ul class="{% if menucss.ulClass is defined %} {{ menucss.ulClass }}{% endif %}">
-
    {% if MenuNodes is defined  %}
         {% if MenuNodes is iterable %}
             {% for MenuNode in MenuNodes %}
@@ -13,19 +37,24 @@
                                   {% for childrenMenu in  craft.Navigation.renderChildren(MenuNode.NodeId) %}
                                       <li>
                                           {{ childrenMenu.NodeName }}
+                                          {{ macros.menu(childrenMenu.NodeId) }}
+
                                       </li>
                                    {% endfor %}
 
                                </ul>
                            </li>
+                           {% else %}
+
                         {% endif %}
+                {% else %}
 
                     {% endif %}
+
             {% endfor %}
             {% endif %}
 {% else %}
-sdfsfsdfsdfsdf
-    {% endif %}
+ {% endif %}
 
 </ul>
 
