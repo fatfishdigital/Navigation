@@ -91,6 +91,7 @@ class Navigation extends Plugin
                 $event->rules['navigation/save'] = 'navigation/navigation/save';
                 $event->rules['navigation/edit'] = 'navigation/navigation/edit';
                 $event->rules['navigation/delete'] = 'navigation/navigation/delete';
+                $event->rules['navigation/deletenode'] = 'navigation/navigation/menunodedelete';
             }
         );
 

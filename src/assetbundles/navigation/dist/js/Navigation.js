@@ -9,6 +9,9 @@
  * @package   Navigation
  * @since     1.0.0
  */
+/*
+TODO :: clean up js file we need to optimize code
+ */
 $(document).ready(function () {
 
     $tabledata = $('.sortable');
@@ -25,7 +28,7 @@ $(document).ready(function () {
             onSelect: function (element) {
 
                 $tabledata.append(
-                    '<li style="display: list-item;" class="mjs-nestedSortable-branch mjs-nestedSortable-expanded" id="menuItem_' + element[0].id + '" title="' + element[0].label + '" data-url="'+element[0].url+'">' +
+                    '<li style="display: list-item;" class="mjs-nestedSortable-branch mjs-nestedSortable-expanded" id="menuItem_' + element[0].id + '" title="' + element[0].label + '" url="'+element[0].url+'">' +
                     '<div class="menuDiv">' +
                     '<span class="menulabel">' + element[0].label +
                     '</span>' +
@@ -52,7 +55,9 @@ $(document).ready(function () {
            Craft.cp.displayNotification('error','You dont have any menu item in the list');
            return;
         }
-        else{}
+        else{
+
+        }
         var $postData = [{menuname:$('#menuname').val(),siteId:Craft.siteId}];
         var $SerializedMenu = $('ol.sortable').nestedSortable('toArray');
         var $id= $('#menuid').val();
@@ -82,11 +87,12 @@ $(document).ready(function () {
                 $CustomButton.on('click', function () {
                     $randomId = Math.floor((Math.random() * 100) + 1);
                     $tabledata.append(
-                        '<li style="display: list-item;" class="mjs-nestedSortable-branch mjs-nestedSortable-expanded" id="menuItem_' + $randomId + '" data-url="' + $('#url').val() + '">' +
+                        '<li style="display: list-item;" class="mjs-nestedSortable-branch mjs-nestedSortable-expanded" id="menuItem_' + $randomId + '" title="'+$('#name').val()+'" url="' + $('#url').val() + '">' +
                         '<div class="menuDiv">' +
                         '<span>' + $('#name').val() +
                         '</span>' +
-                        '&nbsp;<a class="delete icon" title="delete" role="button" id="menuItem_' + $randomId + '" >' +
+                        '&nbsp;<a class="delete icon" title="delete" role="button" onclick="removeMenuNode($(this));" id="menuItem_' + $randomId + '" >' +
+                        '</a>' +  '&nbsp;<a class="settings icon" title="settings" role="button" onclick="updateNode($(this));" id="menuItem_' + $randomId + '" >' +
                         '</a>' +
                         '</div> ' +
                         '</li>'
@@ -161,8 +167,15 @@ $('.DeleteNav').on('click',function () {
 
 });
 function removeMenuNode($this) {
+
     $id='#'+$this.attr('id');
+    Craft.postActionRequest('/navigation/deletenode',{id:$this.attr('id')});
     $($id).remove();
+    var $postData = [{menuname:$('#menuname').val(),siteId:Craft.siteId}];
+    var $SerializedMenu = $('ol.sortable').nestedSortable('toArray');
+    var $id= $('#menuid').val();
+    var $htmlmenu=$.trim($('#navigation-menu').html());
+    Craft.postActionRequest('/navigation/save',{menuname:$postData,menuArray:$SerializedMenu,id:$id,menuhtml:$htmlmenu});
 }
 
 /*

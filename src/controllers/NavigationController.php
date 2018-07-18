@@ -13,6 +13,7 @@
     use fatfish\navigation\models\NavigationNodeModel;
     use fatfish\navigation\Navigation;
     use craft\web\Controller;
+    use fatfish\navigation\records\NavigationNodeElemenetRecord;
     use yii\bootstrap\Nav;
 
 
@@ -134,5 +135,25 @@
                     echo false;
                    return;
             }
+        }
+
+        /**
+         *
+         */
+        public function actionMenunodedelete()
+        {
+            if(Craft::$app->request->isAjax)
+            {
+
+                $MenuNode = new NavigationNodeElemenetRecord();
+                $NodeId = (int)str_replace('menuItem_','',Craft::$app->request->getBodyParam('id'));
+               if($MenuNode::deleteAll(['NodeId'=>$NodeId]))
+               {
+                   echo true;
+               }
+               return true;
+
+            }
+
         }
     }

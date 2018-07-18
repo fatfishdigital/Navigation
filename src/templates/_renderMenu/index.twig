@@ -7,7 +7,7 @@
             {% for grandchildren in Grandchildren  %}
 
                 <li>
-                    {{ grandchildren.NodeName }}
+                    <a href="/{% if craft.entries.id(grandchildren.NodeId).first().uri is defined %}{{craft.entries.id(grandchildren.NodeId).first().uri}}{% else %}{{ grandchildren.menuUrl }}  {% endif %}">{{ grandchildren.NodeName }}</a>
                     {{ macros.menu(grandchildren.NodeId) }}
 
                 </li>
@@ -25,18 +25,21 @@
 
 <div class="{% if menucss.wrapperClass is defined %} {{ menucss.wrapperClass }} {% endif %}">
 <ul class="{% if menucss.ulClass is defined %} {{ menucss.ulClass }}{% endif %}">
+
    {% if MenuNodes is defined  %}
         {% if MenuNodes is iterable %}
+
             {% for MenuNode in MenuNodes %}
+
                    {% if MenuNode.ParenNode == (0)  %}
 
                        {% if craft.Navigation.renderChildren(MenuNode.NodeId) is iterable %}
-                           <li class="{% if menucss.liClass is defined %} {{ menuCss.liClass }} {% endif %}">
-                               <a href="#">{{ MenuNode.NodeName }}</a>
+                           <li class="{% if menucss.listClass is defined %} {{ menucss.listClass }} {% endif %}">
+                               <a href="/{% if craft.entries.id(MenuNode.NodeId).first().uri is defined %}{{craft.entries.id(MenuNode.NodeId).first().uri}}{% else %}{{ MenuNode.menuUrl }}  {% endif %}">{{ MenuNode.NodeName }}</a>
                                <ul>
                                   {% for childrenMenu in  craft.Navigation.renderChildren(MenuNode.NodeId) %}
                                       <li>
-                                          {{ childrenMenu.NodeName }}
+                                          <a href="/{% if craft.entries.id(childrenMenu.NodeId).first().uri is defined %}{{craft.entries.id(childrenMenu.NodeId).first().uri}}{% else %}{{ childrenMenu.menuUrl }}  {% endif %}">{{ childrenMenu.NodeName }}</a>
                                           {{ macros.menu(childrenMenu.NodeId) }}
 
                                       </li>
@@ -48,7 +51,6 @@
 
                         {% endif %}
                 {% else %}
-
                     {% endif %}
 
             {% endfor %}
