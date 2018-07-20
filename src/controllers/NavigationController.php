@@ -86,13 +86,17 @@
         public function FindNodeMenuItem($menuItems,$MenuId)
         {
 
+
+
            foreach ($menuItems as $menuItem):
                 if(isset($menuItem['id']) && (!is_null($menuItem['id']) || !empty($menuItem['id'])))
                 {
-                   $this->NavigationNodeModel->NodeName=$menuItem['title'];
+                    $this->NavigationNodeModel->NodeName=$menuItem['title'];
                    $this->NavigationNodeModel->NodeId = (int)$menuItem['id'];
                    $this->NavigationNodeModel->ParenNode = (int)$menuItem['parent_id'];
                    $this->NavigationNodeModel->menuId = $MenuId;
+                   $this->NavigationNodeModel->menuUrl = $menuItem['url'];
+                   $this->NavigationNodeModel->MenuOrder = array_search($menuItem,$menuItems);
                     if($this->NavigationNodeModel->validate())
                     {
                       Navigation::$plugin->navigationService->SaveNodeElement($this->NavigationNodeModel);

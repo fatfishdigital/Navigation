@@ -130,6 +130,8 @@ class NavigationService extends Component
                 $record->NodeId          = $model->NodeId;
                 $record->ParenNode       = $model->ParenNode;
                 $record->menuId          = $model->menuId;
+                $record->menuUrl         = $model->menuUrl;
+                $record->MenuOrder       = $model->MenuOrder;
                 $record->save(true);
 
             }
@@ -140,6 +142,8 @@ class NavigationService extends Component
                 $record->NodeId          = $model->NodeId;
                 $record->ParenNode       = $model->ParenNode;
                 $record->menuId          = $model->menuId;
+                $record->menuUrl         = $model->menuUrl;
+                $record->MenuOrder       = $model->MenuOrder;
                  $record->update(true);
             }
 
@@ -195,12 +199,12 @@ class NavigationService extends Component
     {
 
         $NavigationNodeElementRecord = new NavigationNodeElemenetRecord();
-        return $NavigationNodeElementRecord::find()->where(['menuId'=>(int)$this->findByName($handleName)])->all();
+        return $NavigationNodeElementRecord::find()->where(['menuId'=>(int)$this->findByName($handleName)])->orderBy(['MenuOrder'=>'asc'])->all();
     }
     public function GetChild($nodeId)
     {
         $NavigationNodeElementRecord = new NavigationNodeElemenetRecord();
-        return $NavigationNodeElementRecord::find()->where(['ParenNode'=>(int)$nodeId])->all();
+        return $NavigationNodeElementRecord::find()->where(['ParenNode'=>(int)$nodeId])->orderBy(['MenuOrder'=>'asc'])->all();
     }
 
 }

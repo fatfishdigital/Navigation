@@ -785,15 +785,24 @@
 				}
 
 				if (id) {
-
 					var data = $(item).children('div').data();
+					var $MenUurl;
+					if($(item)[0].attributes.hasOwnProperty('url'))
+                    {
+                        $MenUurl = $(item)[0].attributes.url.value;
+                    }
+                    else
+                    {
+                        $MenUurl='';
+                    }
 					var itemObj = $.extend( data, {
 						"id":id[2],
 						"parent_id":pid,
 						"depth":depth,
 						"left":_left,
                         "title" : ($(item)[0].title) ,
-						"right":right
+						"right":right,
+						"url" : $MenUurl
 						} );
 					ret.push( itemObj );
 				}

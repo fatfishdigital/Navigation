@@ -27,8 +27,9 @@ $(document).ready(function () {
         new Craft.BaseElementSelectorModal('craft\\elements\\Entry', {
             onSelect: function (element) {
 
+
                 $tabledata.append(
-                    '<li style="display: list-item;" class="mjs-nestedSortable-branch mjs-nestedSortable-expanded" id="menuItem_' + element[0].id + '" title="' + element[0].label + '" url="'+element[0].url+'">' +
+                    '<li style="display: list-item;" class="mjs-nestedSortable-branch mjs-nestedSortable-expanded" id="menuItem_' + element[0].id + '" title="' + element[0].label + '">' +
                     '<div class="menuDiv">' +
                     '<span class="menulabel">' + element[0].label +
                     '</span>' +
@@ -37,8 +38,7 @@ $(document).ready(function () {
                     '</div> ' +
                     '</li>'
                 );
-
-            },
+                         },
             multiSelect: true
         });
 
@@ -87,7 +87,7 @@ $(document).ready(function () {
                 $CustomButton.on('click', function () {
                     $randomId = Math.floor((Math.random() * 100) + 1);
                     $tabledata.append(
-                        '<li style="display: list-item;" class="mjs-nestedSortable-branch mjs-nestedSortable-expanded" id="menuItem_' + $randomId + '" title="'+$('#name').val()+'" url="' + $('#url').val() + '">' +
+                        '<li style="display: list-item;" class="mjs-nestedSortable-branch mjs-nestedSortable-expanded" id="menuItem_' + $randomId + '" title="'+$('#name').val()+'" url="'+$('#url').val()+'">' +
                         '<div class="menuDiv">' +
                         '<span>' + $('#name').val() +
                         '</span>' +
