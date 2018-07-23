@@ -88,9 +88,9 @@ Custom menu
                 $CustomButton = $('#BtnCustomUrl');
                 $CustomButton.on('click', function () {
                     $randomId = Math.floor((Math.random() * 100) + 1);
-                    var $listitem = $("<li>").addClass("mjs-nestedSortable-branch mjs-nestedSortable-expanded").attr({style:"display:list-item",id:"menuItem_"+$randomId,title:$('#name').val(),url:$('#url').val()});
-                    var $menuDiv  = $("<div>").addClass("menuDiv");
-                    var $menulabel= $("<span>").addClass("menulabel").html($("#name").val());
+                    var $listitem    = $("<li>").addClass("mjs-nestedSortable-branch mjs-nestedSortable-expanded").attr({style:"display:list-item",id:"menuItem_"+$randomId,title:$('#name').val(),url:$('#url').val()});
+                    var $menuDiv     = $("<div>").addClass("menuDiv");
+                    var $menulabel   = $("<span>").addClass("menulabel").html($("#name").val());
                     var $deletelink  = $("<a>").addClass("delete icon deletenode").attr({title:"delete",role:"button",id:"menuItem_"+$randomId,onclick:'removeMenuNode($(this))'});
                     var $editlink    = $("<a>").addClass("settings icon menusettings").attr({title:"setting",role:"button",id:"menuItem_"+$randomId,onclick:'updateNode($(this))'});
                     $menuDiv.append($menulabel);
