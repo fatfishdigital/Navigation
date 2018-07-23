@@ -10,7 +10,7 @@
  * @since     1.0.0
  */
 /*
-TODO :: clean up js file we need to optimize code
+code cleanup performed.
  */
 $(document).ready(function () {
 
@@ -21,23 +21,23 @@ $(document).ready(function () {
     $menuname = $('#menuname');
     $btnCustomUrl = $('#customPage');
 
-
+/*
+New menu from Entries list.
+ */
     $('#addpage').on('click', function () {
 
         new Craft.BaseElementSelectorModal('craft\\elements\\Entry', {
             onSelect: function (element) {
-
-
-                $tabledata.append(
-                    '<li style="display: list-item;" class="mjs-nestedSortable-branch mjs-nestedSortable-expanded" id="menuItem_' + element[0].id + '" title="' + element[0].label + '">' +
-                    '<div class="menuDiv">' +
-                    '<span class="menulabel">' + element[0].label +
-                    '</span>' +
-                    '&nbsp;<a class="delete icon deletenode" title="delete" role="button" onclick="removeMenuNode($(this));" id="menuItem_' + element[0].id + '">' +   '&nbsp;<a class="settings icon menusettings" title="setting" role="button" id="menuItem_' + element[0].id + '" onclick="updateNode($(this))">' +
-                    '</a>' +
-                    '</div> ' +
-                    '</li>'
-                );
+                       var $listitem    = $("<li>").addClass("mjs-nestedSortable-branch mjs-nestedSortable-expanded").attr({id:"menuItem_"+element[0].id,title:element[0].label,style:"display:list-item"});
+                       var $menuDiv     = $("<div>").addClass("menuDiv");
+                       var $menulabel   = $("<span>").addClass("menulabel").html(element[0].label);
+                       var $deletelink  = $("<a>").addClass("delete icon deletenode").attr({title:"delete",role:"button",id:"menuItem_"+element[0].id,onclick:'removeMenuNode($(this))'});
+                       var $editlink    = $("<a>").addClass("settings icon menusettings").attr({title:"setting",role:"button",id:"menuItem_"+element[0].id,onclick:'updateNode($(this))'});
+                       $menuDiv.append($menulabel);
+                       $menuDiv.append($deletelink);
+                       $menuDiv.append($editlink);
+                       $listitem.append($menuDiv);
+                       $tabledata.append($listitem);
                          },
             multiSelect: true
         });
@@ -73,7 +73,9 @@ $(document).ready(function () {
            }
         });
     });
-
+/*
+Custom menu
+ */
     $btnCustomUrl.on('click', function (e) {
 
 
@@ -86,18 +88,16 @@ $(document).ready(function () {
                 $CustomButton = $('#BtnCustomUrl');
                 $CustomButton.on('click', function () {
                     $randomId = Math.floor((Math.random() * 100) + 1);
-                    $tabledata.append(
-                        '<li style="display: list-item;" class="mjs-nestedSortable-branch mjs-nestedSortable-expanded" id="menuItem_' + $randomId + '" title="'+$('#name').val()+'" url="'+$('#url').val()+'">' +
-                        '<div class="menuDiv">' +
-                        '<span>' + $('#name').val() +
-                        '</span>' +
-                        '&nbsp;<a class="delete icon" title="delete" role="button" onclick="removeMenuNode($(this));" id="menuItem_' + $randomId + '" >' +
-                        '</a>' +  '&nbsp;<a class="settings icon" title="settings" role="button" onclick="updateNode($(this));" id="menuItem_' + $randomId + '" >' +
-                        '</a>' +
-                        '</div> ' +
-                        '</li>'
-                    );
-
+                    var $listitem = $("<li>").addClass("mjs-nestedSortable-branch mjs-nestedSortable-expanded").attr({style:"display:list-item",id:"menuItem_"+$randomId,title:$('#name').val(),url:$('#url').val()});
+                    var $menuDiv  = $("<div>").addClass("menuDiv");
+                    var $menulabel= $("<span>").addClass("menulabel").html($("#name").val());
+                    var $deletelink  = $("<a>").addClass("delete icon deletenode").attr({title:"delete",role:"button",id:"menuItem_"+$randomId,onclick:'removeMenuNode($(this))'});
+                    var $editlink    = $("<a>").addClass("settings icon menusettings").attr({title:"setting",role:"button",id:"menuItem_"+$randomId,onclick:'updateNode($(this))'});
+                    $menuDiv.append($menulabel);
+                    $menuDiv.append($deletelink);
+                    $menuDiv.append($editlink);
+                    $listitem.append($menuDiv);
+                    $tabledata.append($listitem);
                     $modal.hide();
                     $modal.destroy();
                 });
@@ -163,9 +163,10 @@ $('.DeleteNav').on('click',function () {
    });
 
 });
-
-
 });
+/*
+Remove menu from list.
+ */
 function removeMenuNode($this) {
 
     $id='#'+$this.attr('id');
