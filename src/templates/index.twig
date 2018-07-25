@@ -79,6 +79,9 @@
                 <hr>
                 <div class="settings">
                     <h2 class="namelabel">{{ menuname }}</h2>
+                    {% if AllData is defined %}
+                        {{ dump(AllData) }}
+                    {% endif %}
                 </div>
             </div>
             </div>

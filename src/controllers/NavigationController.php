@@ -17,6 +17,7 @@
     use fatfish\navigation\records\NavigationRecord;
     use Symfony\Component\DomCrawler\Tests\CrawlerTest;
     use yii\bootstrap\Nav;
+    use craft\web\View;
 
 
     /**
@@ -169,7 +170,12 @@
                 $NavigationModel = New NavigationModel();
                 $NavigationModel->MenuName = Craft::$app->request->getBodyParam('data');
                 $NavigationModel->siteId = Craft::$app->request->getBodyParam('siteid');
-             echo   $NavigationData=  Navigation::$plugin->navigationService->saveNavigationName($NavigationModel);
+                $NavigationData=  Navigation::$plugin->navigationService->saveNavigationName($NavigationModel);
+                $oldMode = \Craft::$app->view->getTemplateMode();
+                \Craft::$app->view->setTemplateMode(View::TEMPLATE_MODE_CP);
+                  \Craft::$app->view->renderTemplate('navigation/index',['AllData'=>$NavigationData]);
+                \Craft::$app->view->setTemplateMode($oldMode);
+                echo true;
             }
 
         }

@@ -160,18 +160,19 @@ Custom menu
 
                     Craft.postActionRequest('/navigation/menusave',{data:$('#name').val(),siteid:Craft.siteId},function (response,status) {
 
-                        if(status==200)
+                        if(status=="success")
                         {
-                            console.log(response);
+
                             Craft.cp.displayNotice("Menu Created Successfully");
-                            // $modal.hide();
-                            // $modal.destroy();
+                            $modal.hide();
+                            $modal.destroy();
+                            // location.reload('/navigation/edit/15');
                         }
                         else
                         {
                             Craft.cp.displayAlerts("Cannot Create Menu !!!");
-                            // $modal.hide();
-                            // $modal.destroy();
+                            $modal.hide();
+                            $modal.destroy();
                         }
                     });
 

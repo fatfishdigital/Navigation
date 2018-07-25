@@ -217,8 +217,8 @@ class NavigationService extends Component
         $NavigationRecord->MenuName = $model->MenuName;
         $NavigationRecord->MenuHtml = $model->MenuHtml;
         $NavigationRecord->save();
-//        return $NavigationRecord::find()->orderBy(['id'=>'desc'])->all();
-        return $NavigationRecord->getAttribute('id');
+        return $NavigationRecord::find()->orderBy(['id'=>'desc'])->all();
+
     }
 
 }
