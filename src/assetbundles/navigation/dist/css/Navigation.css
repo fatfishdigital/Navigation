@@ -44,7 +44,7 @@ small code {
 }
 
 ol {
-    max-width: 450px;
+    max-width: 100%;
     padding-left: 25px;
 }
 
@@ -53,12 +53,7 @@ ol.sortable,ol.sortable ol {
 }
 
 .sortable li div {
-    border: 1px solid #d4d4d4;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
     cursor: move;
-    border-color: #D4D4D4 #D4D4D4 #BCBCBC;
     margin: 0;
     padding: 3px;
 }
@@ -88,10 +83,14 @@ li.mjs-nestedSortable-collapsed.mjs-nestedSortable-hovering div {
 }
 
 .menuDiv {
-    background: #EBEBEB;
-    height: 30px;
-}
+    position: relative;
 
+    }
+.deletnode
+{
+    position: relative;
+    left: 10px;
+}
 .menuEdit {
     background: #FFF;
 }

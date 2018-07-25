@@ -92,6 +92,7 @@ class Navigation extends Plugin
                 $event->rules['navigation/edit'] = 'navigation/navigation/edit';
                 $event->rules['navigation/delete'] = 'navigation/navigation/delete';
                 $event->rules['navigation/deletenode'] = 'navigation/navigation/menunodedelete';
+                $event->rules['navigation/menusave'] = 'navigation/navigation/menusave';
             }
         );
 
@@ -103,6 +104,7 @@ class Navigation extends Plugin
                 $event->rules['menulocation'] = 'navigation/navigation/location';
                 $event->rules['navigation']='navigation/navigation/index';
                 $event->rules['navigation/edit/<NavId:\d+>']='navigation/navigation/edit';
+                $event->rules['navigation/menusave'] = 'navigation/navigation/menusave';
 
             }
         );

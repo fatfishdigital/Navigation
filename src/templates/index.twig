@@ -69,35 +69,49 @@
                         <div class="btngroup submit">
                             <a class="btn submit add icon" id="NewMenu">Create Menu</a>
 
+
                         </div>
                     </div>
                     <br>
             <div class="back">
-                <div class="pane">
-                    <h2>Pages</h2>
-                    <hr>
-                    <div class="settings">
-                        <button class="btn submit add icon" id="addpage">Page</button>
-                        <button class="btn submit add icon" id="customPage">custom page</button>
-                    </div>
-
+            <div class="pane">
+                <h2>Navigation Menu List</h2>
+                <hr>
+                <div class="settings">
+                    <h2 class="namelabel">{{ menuname }}</h2>
                 </div>
+            </div>
             </div>
 
         </div>
         <div id="content-container">
-            <div id="content">
-                <div class="menuName">
-                    <label class="namelabel">{{ menuname }}</label>
+
+            <div class="back">
+                <div class="pane">
+                    <h2 class="namelabel">{{ menuname }}</h2>
                     <input type="text" name="menuname" value="{{ menuname }}" id="menuname" hidden/>
-                     <input type="text" name="menuname" value="{{ menuid }}" id="menuid" hidden/>
+                    <input type="text" name="menuname" value="{{ menuid }}" id="menuid" hidden/>
                 </div>
-                <div class="tableview">
+            </div>
+
+
+
+            <div id="content">
+
+                <div class="row">
 
 
                     <ol class="sortable ui-sortable mjs-nestedSortable-branch mjs-nestedSortable-expanded" id="navigation-menu">
+                        <table class="data fullwidth" data-structure-id="2" data-max-levels="12">
+                            <thead>
 
-                        {{ MenuHtml | raw}}
+                            </thead>
+                            <tbody class="tableview">
+                            {{ MenuHtml | raw}}
+
+                            </tbody>
+                        </table>
+
 
                     </ol>
 
@@ -107,10 +121,17 @@
             </div>
             <div class="settings" style="padding-left: 10px">
                 <a class="btn submit fa-save" id="savemenu">Save Menu</a>
+                <button class="btn submit add icon" id="addpage">Entry</button>
+                <button class="btn submit add icon" id="customPage">External Link</button>
             </div>
 
         </div>
     </div>
+
+
+
+
+
     <script id="form_element" type="text/template">
         <div class="body">
             <div class="field" id="node__url-name">
@@ -132,12 +153,15 @@
         </div>
         <footer class="footer">
             <div class="buttons right">
-                            <input type="submit" class="btn submit" value="{{ 'Add'|t('app') }}" id="BtnCustomUrl">
+                <input type="button" class="btn submit" value="{{ 'Cancel'|t('app') }}" id="exit">
+                 <input type="submit" class="btn submit" value="{{ 'Add'|t('app') }}" id="BtnCustomUrl">
             </div>
         </footer>
 
     </script>
-
+<!--
+Create New Menu dialog box
+-->
     <script id="create_menu" type="text/template">
         <div class="body">
             <div class="field" id="node__url-name">
@@ -151,9 +175,31 @@
         </div>
         <footer class="footer">
             <div class="buttons right">
+                <input type="button" class="btn submit" value="{{ 'Cancel'|t('app') }}" id="exit">
                 <input type="submit" class="btn submit" value="{{ 'Add'|t('app') }}" id="MenuBtn">
             </div>
         </footer>
+
+    </script>
+
+    <script id="remove_node" type="text/template">
+
+        <div class="body">
+            <div class="field" id="node__url-name">
+                <div class="heading">
+                    <label class="required" for="name">{{ 'Do you want to remove this menu item ?' }}</label>
+                </div>
+
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="buttons right">
+                <input type="button" class="btn submit" value="{{ 'Cancel'|t('app') }}" id="exit">
+                <input type="submit" class="btn submit" value="{{ 'Delete'|t('app') }}" id="Delete">
+            </div>
+        </footer>
+
+
 
     </script>
     {% js %}

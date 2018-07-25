@@ -1,8 +1,8 @@
 # Navigation plugin for Craft CMS 3.x
 
-Craft navigation for the website.
+Craft navigation plugin for the website.
 
-![Screenshot](resources/img/plugin-logo.png)
+![Screenshot](resources/img/pluginlogo.png)
 
 ## Requirements
 

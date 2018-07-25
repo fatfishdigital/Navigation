@@ -206,5 +206,19 @@ class NavigationService extends Component
         $NavigationNodeElementRecord = new NavigationNodeElemenetRecord();
         return $NavigationNodeElementRecord::find()->where(['ParenNode'=>(int)$nodeId])->orderBy(['MenuOrder'=>'asc'])->all();
     }
+    /*
+     * param Navigation Model
+     * returns Last saved navigation data.
+     */
+    public function saveNavigationName($model)
+    {
+        $NavigationRecord = new NavigationRecord();
+        $NavigationRecord->siteId = $model->siteId;
+        $NavigationRecord->MenuName = $model->MenuName;
+        $NavigationRecord->MenuHtml = $model->MenuHtml;
+        $NavigationRecord->save();
+//        return $NavigationRecord::find()->orderBy(['id'=>'desc'])->all();
+        return $NavigationRecord->getAttribute('id');
+    }
 
 }
