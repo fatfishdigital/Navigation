@@ -175,7 +175,7 @@ Custom menu
                            Waiting for Craft People to respond to this issues.
                             */
 
-                            $(location).attr('href', 'navigation/edit/'+response);
+                            $(location).attr('href', '/admin/navigation/edit/'+response);
                         }
                         else
                         {
