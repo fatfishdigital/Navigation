@@ -39,10 +39,7 @@
         <a href="{{ pluginCpUrl }}" class="btn submit add icon">{{ "Click Me!"|t('navigation') }}</a>
     </div>
 {% endset %}
-{% set tabs = {
-    editmenu: { label: "Menu" | t('Navigation'), url: url('navigation') },
-    menulocation: { label: "Manage Locations" | t('Navigation'), url: url('/admin/menulocation') },
-} %}
+
 
 {# The content of the CP Section#}
 {% set content %}
@@ -82,7 +79,9 @@
                   {% if MenuList is defined and MenuList is iterable  %}
                       <ol style="list-style: none">
                       {% for Menu in MenuList  %}
-                          <li><a href="navigation/edit/{{ Menu.id }}">{{ Menu.MenuName }}</a> </li>
+                          <li><a href="navigation/edit/{{ Menu.id }}">{{ Menu.MenuName }}</a>
+                              <a class="delete icon DeleteNav" data-id="{{ Menu.id }}" title="{{ Menu.MenuName }}"></a>
+                          </li>
                       {% endfor %}
                       </ol>
                     {% endif %}
@@ -200,6 +199,19 @@ Create New Menu dialog box
         </footer>
 
 
+
+    </script>
+    <script id="DeleteMenu" type="text/template">
+        <div class="body">
+            Are you sure you want to delete ?
+        </div>
+        <footer class="footer">
+            <div class="buttons right">
+                <input type="button" class="btn submit" value="{{ 'Cancel'|t('app') }}" id="exit">
+                <input type="button" class="btn submit" value="{{ 'Delete'|t('app') }}" id="MenuBtn">
+
+            </div>
+        </footer>
 
     </script>
     {% js %}
