@@ -75,15 +75,37 @@
                 <h2>Navigation Menu List</h2>
                 <hr>
                 <div class="settings">
-                    <h2 class="namelabel">{{ menuname }}</h2>
+
+                    {% if Menu is defined and Menu is iterable  %}
+                        <nav>
+                        <ul style="list-style: none" id="groups">
+                            {% for menulist in Menu  %}
+                                 <li>
+                                     {% if menulist.MenuName == menuname %}
+                                         <a href="/admin/navigation/edit/{{ menulist.id }}" class="sel">{{ menulist.MenuName }}</a>
+                                         {% else %}
+                                             <a href="/admin/navigation/edit/{{ menulist.id }}">{{ menulist.MenuName }}</a>
+                                     {% endif %}
+
+
+                                    <a class="delete icon DeleteNav" data-id="{{ menulist.id }}" title="{{ menulist.MenuName }}"></a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        </nav>
+                    {% endif %}
+
+
                   {% if MenuList is defined and MenuList is iterable  %}
-                      <ol style="list-style: none">
+                      <nav>
+                      <ul style="list-style: none" id="groups">
                       {% for Menu in MenuList  %}
-                          <li><a href="navigation/edit/{{ Menu.id }}">{{ Menu.MenuName }}</a>
+                          <li><a href="/admin/navigation/edit/{{ Menu.id }}">{{ Menu.MenuName }}</a>
                               <a class="delete icon DeleteNav" data-id="{{ Menu.id }}" title="{{ Menu.MenuName }}"></a>
                           </li>
                       {% endfor %}
-                      </ol>
+                      </ul>
+                      </nav>
                     {% endif %}
                 </div>
             </div>
@@ -118,9 +140,9 @@
 
             </div>
             <div class="settings" style="padding-left: 10px">
-                <a class="btn submit fa-save" id="savemenu">Save Menu</a>
-                <button class="btn submit add icon" id="addpage">Entry</button>
-                <button class="btn submit add icon" id="customPage">External Link</button>
+                <a class="btn add icon" id="savemenu">Save Menu</a>
+                <button class="btn add icon" id="addpage">Entry</button>
+                <button class="btn add icon" id="customPage">External Link</button>
             </div>
 
         </div>

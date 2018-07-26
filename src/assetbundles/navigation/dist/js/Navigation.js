@@ -213,19 +213,20 @@ $('.DeleteNav').on('click',function () {
         onShow : function () {
             $('#MenuBtn').on('click',function () {
               var $id = $('.DeleteNav').data('id');
-              Craft.postActionRequest('/navigation/delete',{id:$id},function (response) {
-                  if(response)
+              Craft.postActionRequest('/navigation/delete',{id:$id},function (response,status) {
+                  if(status=="success")
                   {
                       Craft.cp.displayNotice("Menu Deleted Successfully !!");
-                      location.reload();
+                      // $(location).attr('href', '/admin/navigation');
                   }
                   else {
                       Craft.cp.displayNotice("Cannot Delete Menu !");
-                      location.reload();
+
                   }
               });
               $modal.hide();
               $modal.destroy();
+
             });
             $('#exit').on('click',function () {
                 $modal.hide();

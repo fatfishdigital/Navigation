@@ -124,7 +124,7 @@
          */
         public function actionEdit($NavId)
         {
-         return $this->renderTemplate('navigation/index',['MenuData'=>Navigation::$plugin->navigationService->GetNavigationById($NavId)]);
+         return $this->renderTemplate('navigation/index',['MenuData'=>Navigation::$plugin->navigationService->GetNavigationById($NavId),'Menu'=>Navigation::$plugin->navigationService->GetMenuList()]);
         }
 
         /**

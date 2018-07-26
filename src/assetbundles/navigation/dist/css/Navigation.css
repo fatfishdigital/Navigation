@@ -142,3 +142,19 @@ label.namelabel {
     text-align: center;
     left: 20px;
 }
+
+
+
+a.delete.icon.DeleteNav {
+    position: relative;
+    float: right;
+    bottom: 31px;
+
+}
+.pane{
+    background-color: #E7EEF3;
+}
+a.delete.icon.DeleteNav:hover {
+    background: none;
+
+}
