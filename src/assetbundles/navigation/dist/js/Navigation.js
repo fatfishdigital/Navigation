@@ -286,7 +286,7 @@ function removeMenuNode($this) {
 function updateNode($this)
 {
 
-    // debugger;
+    debugger;
     $id = '#'+$($this).attr('id');
     $menuname = $($id).find('div').find('span').find('a').html();
     $url = $($id).attr('url');
@@ -296,10 +296,15 @@ function updateNode($this)
         onShow: function () {
 
             $('#name').val($menuname);
-            $('#url').val($url);
+            if($url=='' || typeof($url)=='undefined')
+            {
+                $('#url').attr('readonly','true');
+            }else {
+                $('#url').val($url);
+            }
            var $CustomButton = $('#BtnCustomUrl');
             $CustomButton.on('click', function () {
-               $($id).find('div').find('span').html($('#name').val());
+               $($id).children('div').children('span').find('a').html($('#name').val());
                $($id).attr('title',$('#name').val());
                $($id).attr('url',$('#url').val());
                $modal.hide();
