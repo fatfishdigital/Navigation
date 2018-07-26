@@ -79,14 +79,19 @@
                 <hr>
                 <div class="settings">
                     <h2 class="namelabel">{{ menuname }}</h2>
-                    {% if AllData is defined %}
-                        {{ dump(AllData) }}
+                  {% if MenuList is defined and MenuList is iterable  %}
+                      <ol style="list-style: none">
+                      {% for Menu in MenuList  %}
+                          <li><a href="navigation/edit/{{ Menu.id }}">{{ Menu.MenuName }}</a> </li>
+                      {% endfor %}
+                      </ol>
                     {% endif %}
                 </div>
             </div>
             </div>
 
         </div>
+       {% if menuname is not empty %}
         <div id="content-container">
 
             <div class="back">
@@ -105,16 +110,7 @@
 
 
                     <ol class="sortable ui-sortable mjs-nestedSortable-branch mjs-nestedSortable-expanded" id="navigation-menu">
-                        <table class="data fullwidth" data-structure-id="2" data-max-levels="12">
-                            <thead>
-
-                            </thead>
-                            <tbody class="tableview">
-                            {{ MenuHtml | raw}}
-
-                            </tbody>
-                        </table>
-
+                                                   {{ MenuHtml | raw}}
 
                     </ol>
 
@@ -129,6 +125,7 @@
             </div>
 
         </div>
+       {% endif %}
     </div>
 
 

@@ -15,7 +15,7 @@ code cleanup performed.
 $(document).ready(function () {
 
     var $modalInstnce;
-    $tabledata = $('.tableview');
+    $tabledata = $('.sortable');
     $btnSave = $('#savemenu');
     $formElement = $('#form_element').html();
     $CreateMenu = $('#create_menu').html();
@@ -30,8 +30,8 @@ New menu from Entries list.
         new Craft.BaseElementSelectorModal('craft\\elements\\Entry', {
             onSelect: function (element) {
                     for(var $i=0;$i<element.length;$i++) {
-                        var $tr = $("<tr>");
-                        var $td = $("<td>");
+                        // var $tr = $("<tr>");
+                        // var $td = $("<td>");
                         var $moveicon = $("<a>").addClass("move icon").attr({title: "Reorder", role: "button"});
                         var $listitem = $("<li>").addClass("mjs-nestedSortable-branch mjs-nestedSortable-expanded").attr({
                             id: "menuItem_" + element[$i].id,
@@ -57,9 +57,9 @@ New menu from Entries list.
                         $menuDiv.append($menulabel);
                         $menuDiv.append($deletelink);
                         $listitem.append($menuDiv);
-                        $td.append($listitem);
-                        $tr.append($td);
-                        $tabledata.append($tr);
+                        // $td.append($listitem);
+                        // $tr.append($td);
+                        $tabledata.append($listitem);
                     }
                          },
             multiSelect: true
@@ -111,8 +111,8 @@ Custom menu
                 $CustomButton = $('#BtnCustomUrl');
                 $CustomButton.on('click', function () {
                     $randomId = Math.floor((Math.random() * 100) + 1);
-                    var $tr = $("<tr>");
-                    var $td=$("<td>");
+                    // var $tr = $("<tr>");
+                    // var $td=$("<td>");
                     var $moveicon = $("<a>").addClass("move icon").attr({title:"Reorder",role:"button"});
                     var $listitem    = $("<li>").addClass("mjs-nestedSortable-branch mjs-nestedSortable-expanded").attr({id:"menuItem_"+$randomId,title:$('#name').val(),url:$('#url').val(),style:"display:list-item"});
                     var $menuDiv     = $("<div>").addClass("element small hasstatus menuDiv");
@@ -124,10 +124,10 @@ Custom menu
                     $menuDiv.append($deletelink);
 
                     $listitem.append($menuDiv);
-                    $td.append($listitem);
-                    $tr.append($td);
+                    // $td.append($listitem);
+                    // $tr.append($td);
 
-                    $tabledata.append($tr);
+                    $tabledata.append($listitem);
 
                     $modal.hide();
                     $modal.destroy();
@@ -159,14 +159,23 @@ Custom menu
                     $menuname.val($('#name').val());
 
                     Craft.postActionRequest('/navigation/menusave',{data:$('#name').val(),siteid:Craft.siteId},function (response,status) {
-
                         if(status=="success")
                         {
 
                             Craft.cp.displayNotice("Menu Created Successfully");
                             $modal.hide();
                             $modal.destroy();
-                            // location.reload('/navigation/edit/15');
+                           /*
+
+                           TODO ::
+                           we need to optimize this code,
+                           ideally menusave function should be able to render Template with parameters
+                           since its frontend ajax request to controller it can only render Template but passing variables
+                           is not working.
+                           Waiting for Craft People to respond to this issues.
+                            */
+
+                            $(location).attr('href', 'navigation/edit/'+response);
                         }
                         else
                         {

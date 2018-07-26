@@ -15,6 +15,7 @@
     use craft\web\Controller;
     use fatfish\navigation\records\NavigationNodeElemenetRecord;
     use fatfish\navigation\records\NavigationRecord;
+    use function Sodium\crypto_aead_aes256gcm_decrypt;
     use Symfony\Component\DomCrawler\Tests\CrawlerTest;
     use yii\bootstrap\Nav;
     use craft\web\View;
@@ -49,7 +50,7 @@
          */
         public function actionIndex()
         {
-            return $this->renderTemplate('navigation/index');
+            return $this->renderTemplate('navigation/index',['MenuList'=>Navigation::$plugin->navigationService->GetMenuList()]);
         }
 
 
@@ -171,12 +172,11 @@
                 $NavigationModel->MenuName = Craft::$app->request->getBodyParam('data');
                 $NavigationModel->siteId = Craft::$app->request->getBodyParam('siteid');
                 $NavigationData=  Navigation::$plugin->navigationService->saveNavigationName($NavigationModel);
-                $oldMode = \Craft::$app->view->getTemplateMode();
-                \Craft::$app->view->setTemplateMode(View::TEMPLATE_MODE_CP);
-                  \Craft::$app->view->renderTemplate('navigation/index',['AllData'=>$NavigationData]);
-                \Craft::$app->view->setTemplateMode($oldMode);
-                echo true;
+                echo $NavigationData;
+
+
             }
+
 
         }
     }

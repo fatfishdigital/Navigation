@@ -16,6 +16,7 @@ use fatfish\navigation\models\NavigationNodeModel;
 use fatfish\navigation\records\NavigationNodeElemenetRecord;
 use fatfish\navigation\records\NavigationRecord;
 use function GuzzleHttp\Promise\all;
+use yii\bootstrap\Nav;
 
 
 /**
@@ -217,8 +218,16 @@ class NavigationService extends Component
         $NavigationRecord->MenuName = $model->MenuName;
         $NavigationRecord->MenuHtml = $model->MenuHtml;
         $NavigationRecord->save();
-        return $NavigationRecord::find()->orderBy(['id'=>'desc'])->all();
+        return $NavigationRecord->getAttribute('id');
 
     }
 
+    /*
+     * list menu id and name
+     */
+        public function GetMenuList()
+        {
+              return NavigationRecord::find()->orderBy(['id'=>'desc'])->all();
+
+        }
 }
