@@ -18,8 +18,8 @@
 
 
 <div class="{% if menucss.wrapperClass is defined %} {{ menucss.wrapperClass }} {% endif %}">
-<ul class="{% if menucss.ulClass is defined %} {{ menucss.ulClass }}{% endif %}">
-
+<ul class="{% if menucss.ulClass is defined %}{{ menucss.ulClass }}{% endif %}">
+{% set active=true %}
    {% if MenuNodes is defined  %}
         {% if MenuNodes is iterable %}
 
@@ -29,7 +29,11 @@
 
                        {% if craft.Navigation.renderChildren(MenuNode.NodeId) is iterable %}
                            <li class="{% if menucss.listClass is defined %} {{ menucss.listClass }} {% endif %}">
-                               <a href="{% if craft.entries.id(MenuNode.NodeId).one().uri is defined %}/{{craft.entries.id(MenuNode.NodeId).one().uri}}{% else %}{{ MenuNode.menuUrl }}  {% endif %}">{{ MenuNode.NodeName }}</a>
+
+                               <a href="{% if craft.entries.id(MenuNode.NodeId).one().uri is defined %}/{{craft.entries.id(MenuNode.NodeId).one().uri}}{% else %}{{ MenuNode.menuUrl }}  {% endif %}" class="{% if menucss.activeClass and active==true is defined %}{{ menucss.activeClass }}{% endif %}">{{ MenuNode.NodeName }}</a>
+                               {% set active=false %}
+
+                             {% if craft.Navigation.renderChildren(MenuNode.NodeId) | length %}
                                <ul>
                                   {% for childrenMenu in  craft.Navigation.renderChildren(MenuNode.NodeId) %}
                                       <li>
@@ -40,6 +44,7 @@
                                    {% endfor %}
 
                                </ul>
+                                 {% endif %}
                            </li>
                            {% else %}
 

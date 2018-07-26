@@ -29,7 +29,10 @@
 
         }
 
-
+        public function getRawNav($HandleName)
+        {
+            return Navigation::$plugin->navigationService->GetNavigationByName($HandleName);
+        }
 
 
 

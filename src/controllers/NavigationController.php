@@ -14,7 +14,11 @@
     use fatfish\navigation\Navigation;
     use craft\web\Controller;
     use fatfish\navigation\records\NavigationNodeElemenetRecord;
+    use fatfish\navigation\records\NavigationRecord;
+    use function Sodium\crypto_aead_aes256gcm_decrypt;
+    use Symfony\Component\DomCrawler\Tests\CrawlerTest;
     use yii\bootstrap\Nav;
+    use craft\web\View;
 
 
     /**
@@ -46,7 +50,7 @@
          */
         public function actionIndex()
         {
-            return $this->renderTemplate('navigation/index');
+            return $this->renderTemplate('navigation/index',['MenuList'=>Navigation::$plugin->navigationService->GetMenuList()]);
         }
 
 
@@ -158,6 +162,21 @@
                return true;
 
             }
+
+        }
+        public function actionMenusave()
+        {
+            if(Craft::$app->request->isAjax)
+            {
+                $NavigationModel = New NavigationModel();
+                $NavigationModel->MenuName = Craft::$app->request->getBodyParam('data');
+                $NavigationModel->siteId = Craft::$app->request->getBodyParam('siteid');
+                $NavigationData=  Navigation::$plugin->navigationService->saveNavigationName($NavigationModel);
+                echo $NavigationData;
+
+
+            }
+
 
         }
     }

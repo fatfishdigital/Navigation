@@ -14,6 +14,7 @@ code cleanup performed.
  */
 $(document).ready(function () {
 
+    var $modalInstnce;
     $tabledata = $('.sortable');
     $btnSave = $('#savemenu');
     $formElement = $('#form_element').html();
@@ -28,16 +29,38 @@ New menu from Entries list.
 
         new Craft.BaseElementSelectorModal('craft\\elements\\Entry', {
             onSelect: function (element) {
-                       var $listitem    = $("<li>").addClass("mjs-nestedSortable-branch mjs-nestedSortable-expanded").attr({id:"menuItem_"+element[0].id,title:element[0].label,style:"display:list-item"});
-                       var $menuDiv     = $("<div>").addClass("menuDiv");
-                       var $menulabel   = $("<span>").addClass("menulabel").html(element[0].label);
-                       var $deletelink  = $("<a>").addClass("delete icon deletenode").attr({title:"delete",role:"button",id:"menuItem_"+element[0].id,onclick:'removeMenuNode($(this))'});
-                       var $editlink    = $("<a>").addClass("settings icon menusettings").attr({title:"setting",role:"button",id:"menuItem_"+element[0].id,onclick:'updateNode($(this))'});
-                       $menuDiv.append($menulabel);
-                       $menuDiv.append($deletelink);
-                       $menuDiv.append($editlink);
-                       $listitem.append($menuDiv);
-                       $tabledata.append($listitem);
+                    for(var $i=0;$i<element.length;$i++) {
+                        // var $tr = $("<tr>");
+                        // var $td = $("<td>");
+                        var $moveicon = $("<a>").addClass("move icon").attr({title: "Reorder", role: "button"});
+                        var $listitem = $("<li>").addClass("mjs-nestedSortable-branch mjs-nestedSortable-expanded").attr({
+                            id: "menuItem_" + element[$i].id,
+                            title: element[$i].label,
+                            style: "display:list-item"
+                        });
+                        var $menuDiv = $("<div>").addClass("element small hasstatus menuDiv");
+                        var $editlink = $("<a>").addClass("menusettings").attr({
+                            title: "setting",
+                            role: "button",
+                            id: "menuItem_" + element[$i].id,
+                            onclick: 'updateNode($(this))'
+                        }).html(element[$i].label);
+                        var $menulabel = $("<span>").addClass("menulabel").append($editlink).append("&nbsp;");
+                        var $deletelink = $("<a>").addClass("delete icon deletenode").attr({
+                            title: "delete",
+                            role: "button",
+                            id: "menuItem_" + element[$i].id,
+                            onclick: 'removeMenuNode($(this))',
+                            style: 'position:relative;left:10px;'
+                        });
+                        $listitem.append($moveicon);
+                        $menuDiv.append($menulabel);
+                        $menuDiv.append($deletelink);
+                        $listitem.append($menuDiv);
+                        // $td.append($listitem);
+                        // $tr.append($td);
+                        $tabledata.append($listitem);
+                    }
                          },
             multiSelect: true
         });
@@ -88,19 +111,35 @@ Custom menu
                 $CustomButton = $('#BtnCustomUrl');
                 $CustomButton.on('click', function () {
                     $randomId = Math.floor((Math.random() * 100) + 1);
-                    var $listitem = $("<li>").addClass("mjs-nestedSortable-branch mjs-nestedSortable-expanded").attr({style:"display:list-item",id:"menuItem_"+$randomId,title:$('#name').val(),url:$('#url').val()});
-                    var $menuDiv  = $("<div>").addClass("menuDiv");
-                    var $menulabel= $("<span>").addClass("menulabel").html($("#name").val());
-                    var $deletelink  = $("<a>").addClass("delete icon deletenode").attr({title:"delete",role:"button",id:"menuItem_"+$randomId,onclick:'removeMenuNode($(this))'});
-                    var $editlink    = $("<a>").addClass("settings icon menusettings").attr({title:"setting",role:"button",id:"menuItem_"+$randomId,onclick:'updateNode($(this))'});
+                    // var $tr = $("<tr>");
+                    // var $td=$("<td>");
+                    var $moveicon = $("<a>").addClass("move icon").attr({title:"Reorder",role:"button"});
+                    var $listitem    = $("<li>").addClass("mjs-nestedSortable-branch mjs-nestedSortable-expanded").attr({id:"menuItem_"+$randomId,title:$('#name').val(),url:$('#url').val(),style:"display:list-item"});
+                    var $menuDiv     = $("<div>").addClass("element small hasstatus menuDiv");
+                    var $editlink    = $("<a>").addClass("menusettings").attr({title:"setting",role:"button",id:"menuItem_"+$randomId,onclick:'updateNode($(this))',url:$('#url').val()}).html($("#name").val());
+                    var $menulabel   = $("<span>").addClass("menulabel").append($editlink).append("&nbsp;");
+                    var $deletelink  = $("<a>").addClass("delete icon deletenode").attr({title:"delete",role:"button",id:"menuItem_"+$randomId,onclick:'removeMenuNode($(this))',style:'position:relative;left:10px;'});
+                   $listitem.append($moveicon);
                     $menuDiv.append($menulabel);
                     $menuDiv.append($deletelink);
-                    $menuDiv.append($editlink);
+
                     $listitem.append($menuDiv);
+                    // $td.append($listitem);
+                    // $tr.append($td);
+
                     $tabledata.append($listitem);
+
                     $modal.hide();
                     $modal.destroy();
                 });
+                $('#exit').on('click',function () {
+                    $modal.hide();
+                    $modal.destroy();
+                });
+            },
+            onHide:function()
+            {
+                $modal.destroy();
             }
 
 
@@ -114,14 +153,48 @@ Custom menu
         $($CreateMenu).appendTo($modal);
         $modal = new Garnish.Modal($modal, {
             onShow: function () {
+                $modalInstnce=$modal;
                 $('#MenuBtn').on('click', function () {
                     $('.namelabel').html($('#name').val());
                     $menuname.val($('#name').val());
+
+                    Craft.postActionRequest('/navigation/menusave',{data:$('#name').val(),siteid:Craft.siteId},function (response,status) {
+                        if(status=="success")
+                        {
+
+                            Craft.cp.displayNotice("Menu Created Successfully");
+                            $modal.hide();
+                            $modal.destroy();
+                           /*
+
+                           TODO ::
+                           we need to optimize this code,
+                           ideally menusave function should be able to render Template with parameters
+                           since its frontend ajax request to controller it can only render Template but passing variables
+                           is not working.
+                           Waiting for Craft People to respond to this issues.
+                            */
+
+                            $(location).attr('href', 'navigation/edit/'+response);
+                        }
+                        else
+                        {
+                            Craft.cp.displayAlerts("Cannot Create Menu !!!");
+                            $modal.hide();
+                            $modal.destroy();
+                        }
+                    });
+
+                });
+                $('#exit').on('click',function () {
                     $modal.hide();
                     $modal.destroy();
                 });
             },
             onHide: function () {
+                $modal.destroy();
+            },
+            onCancel:function () {
                 $modal.destroy();
             }
         });
@@ -154,6 +227,10 @@ $('.DeleteNav').on('click',function () {
               $modal.hide();
               $modal.destroy();
             });
+            $('#exit').on('click',function () {
+                $modal.hide();
+                $modal.destroy();
+            });
         },
        onHide: function () {
            $modal.destroy();
@@ -163,20 +240,44 @@ $('.DeleteNav').on('click',function () {
    });
 
 });
+
 });
 /*
 Remove menu from list.
  */
 function removeMenuNode($this) {
+  var  $Modal = $('<div class="modal fitted"/>');
+  var  $deletenode = $('#remove_node').html();
+   $Modal.append($deletenode);
+   var  $DeleteNodeModal = new Garnish.Modal($Modal,{
 
-    $id='#'+$this.attr('id');
-    Craft.postActionRequest('/navigation/deletenode',{id:$this.attr('id')});
-    $($id).remove();
-    var $postData = [{menuname:$('#menuname').val(),siteId:Craft.siteId}];
-    var $SerializedMenu = $('ol.sortable').nestedSortable('toArray');
-    var $id= $('#menuid').val();
-    var $htmlmenu=$.trim($('#navigation-menu').html());
-    Craft.postActionRequest('/navigation/save',{menuname:$postData,menuArray:$SerializedMenu,id:$id,menuhtml:$htmlmenu});
+        onShow:function () {
+            $('#Delete').on('click',function () {
+                $id='#'+$this.attr('id');
+                Craft.postActionRequest('/navigation/deletenode',{id:$this.attr('id')});
+                $($id).remove();
+                var $postData = [{menuname:$('#menuname').val(),siteId:Craft.siteId}];
+                var $SerializedMenu = $('ol.sortable').nestedSortable('toArray');
+                var $id= $('#menuid').val();
+                var $htmlmenu=$.trim($('#navigation-menu').html());
+                Craft.postActionRequest('/navigation/save',{menuname:$postData,menuArray:$SerializedMenu,id:$id,menuhtml:$htmlmenu});
+                $DeleteNodeModal.hide();
+                $DeleteNodeModal.destroy();
+            });
+            $('#exit').on('click',function () {
+                $DeleteNodeModal.hide();
+                $DeleteNodeModal.destroy();
+            });
+        },
+        onHide:function () {
+           $DeleteNodeModal.destroy();
+        }
+
+
+
+
+    });
+
 }
 
 /*
@@ -185,11 +286,10 @@ function removeMenuNode($this) {
 function updateNode($this)
 {
 
-
+    // debugger;
     $id = '#'+$($this).attr('id');
-    $menuname = $($id).find('div').find('span').html();
-    $url = $($id).data('url');
-
+    $menuname = $($id).find('div').find('span').find('a').html();
+    $url = $($id).attr('url');
     $formBody = $('<div class="modal fitted"/>');
     $($formElement).appendTo($formBody);
     $modal = new Garnish.Modal($formBody, {
@@ -202,6 +302,10 @@ function updateNode($this)
                $($id).find('div').find('span').html($('#name').val());
                $($id).attr('title',$('#name').val());
                $($id).attr('url',$('#url').val());
+               $modal.hide();
+               $modal.destroy();
+            });
+            $('#exit').on('click',function () {
                $modal.hide();
                $modal.destroy();
             });
