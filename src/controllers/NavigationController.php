@@ -137,11 +137,9 @@
 
                    if( Navigation::$plugin->navigationService->DeleteNavById( Craft::$app->request->getBodyParam('id')))
                    {
-                       echo true;
-                       return;
+                      return $this->asJson(true);
                    }
-                    echo false;
-                   return;
+                return $this->asJson(false);
             }
         }
 
@@ -172,7 +170,7 @@
                 $NavigationModel->MenuName = Craft::$app->request->getBodyParam('data');
                 $NavigationModel->siteId = Craft::$app->request->getBodyParam('siteid');
                 $NavigationData=  Navigation::$plugin->navigationService->saveNavigationName($NavigationModel);
-                echo $NavigationData;
+                return $this->asJson($NavigationData);
 
 
             }

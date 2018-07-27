@@ -159,7 +159,7 @@ Custom menu
                     $menuname.val($('#name').val());
 
                     Craft.postActionRequest('/navigation/menusave',{data:$('#name').val(),siteid:Craft.siteId},function (response,status) {
-                        if(status=="success")
+                                    if(status=="success")
                         {
 
                             Craft.cp.displayNotice("Menu Created Successfully");
@@ -217,7 +217,7 @@ $('.DeleteNav').on('click',function () {
                   if(status=="success")
                   {
                       Craft.cp.displayNotice("Menu Deleted Successfully !!");
-                      // $(location).attr('href', '/admin/navigation');
+                      $(location).attr('href', '/admin/navigation');
                   }
                   else {
                       Craft.cp.displayNotice("Cannot Delete Menu !");
