@@ -53,7 +53,7 @@ you can use it via Twig Macro.
 
 Inorder to achieve this you need to use **craft.Navigation.getRawNav(MenuName)** 
 
-This will let you build your own html menu with Twig Macros. 
+This will let you build your own HTML menu with Twig Macros. 
 
 Sample custom menu:
 
