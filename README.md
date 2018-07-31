@@ -41,19 +41,19 @@ Navigation is a simple menu builder for Craft CMS 3.x
 
 craft.Navigation.render() lets you build a menu with pre-built static templates. This function takes two parameters, menu name "menu_name" and menu styling options.
 
-Menu style options contains arrays which have a 'div', 'ul', 'li', and 'a' element. Each element can have their own css class.
+Menu style options contains arrays which have a 'div', 'ul', 'li', and 'a' element. Each element can have their own CSS class.
     
         {{craft.Navigation.render('menu_name',{  wrapperClass : 'navbar',
                                                    ulClass: 'navbar-nav',
                                                    listClass: 'nav-item',
                                                    linkClass: 'nav-link'})}}
 
-This plugin also lets you build menus using your own html and css, 
-you can use it via twig macro. 
+This plugin also lets you build menus using your own HTML and CSS, 
+you can use it via Twig Macro. 
 
 Inorder to achieve this you need to use **craft.Navigation.getRawNav(MenuName)** 
 
-This will let you build your own html menu with twig macros. 
+This will let you build your own html menu with Twig Macros. 
 
 Sample custom menu:
 
