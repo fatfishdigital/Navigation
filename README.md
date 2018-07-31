@@ -26,7 +26,13 @@ To install the plugin, follow these instructions.
 
 Navigation is a simple menu builder for Craft CMS 3.x
 
-   ![Screenshot](resources/img/Navigationicon.png)
+   ![Screenshot](resources/img/Navigationplugin.png)
+   
+   1. Click on create Menu, Give your menu a name.
+   2. Choose your entries by clicking on entry button or click on external link if you want add external link
+   3. Save Menu 
+   
+   Voila you are done !.
 
 
 ## Templating 
