@@ -39,9 +39,9 @@ Navigation is a simple menu builder for Craft CMS 3.x
 
 **craft.Navigation.render()**
 
-craft.Navigation.render() lets you build a menu with inbuilt html. This function takes two parameters, menu name "menu_name" and menu styling options.
+craft.Navigation.render() lets you build a menu with pre-built static templates. This function takes two parameters, menu name "menu_name" and menu styling options.
 
-Menu style options are arrays which have a 'div', 'ul', 'li', and 'a' element. Each element can have their own css class.
+Menu style options contains arrays which have a 'div', 'ul', 'li', and 'a' element. Each element can have their own css class.
     
         {{craft.Navigation.render('menu_name',{  wrapperClass : 'navbar',
                                                    ulClass: 'navbar-nav',
