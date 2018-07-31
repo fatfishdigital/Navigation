@@ -287,7 +287,7 @@ function removeMenuNode($this) {
 function updateNode($this)
 {
 
-    debugger;
+
     $id = '#'+$($this).attr('id');
     $menuname = $($id).find('div').find('span').find('a').html();
     $url = $($id).attr('url');
