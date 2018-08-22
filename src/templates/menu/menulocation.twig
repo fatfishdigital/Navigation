@@ -37,7 +37,7 @@
     </div>
 {% endset %}
 {% set tabs = {
-    editmenu: { label: "Menu" | t('Navigation'), url: url('navigation') },
+    editmenu: { label: "Menu" | t('Navigation'), url: url('craftnavigation') },
     menulocation: { label: "Manage Locations" | t('Navigation'), url: url('/admin/menulocation') },
 }
 %}
@@ -62,7 +62,7 @@
                     </td>
                     <td>
                         <a class="delete icon DeleteNav" data-id="{{ Menu.id }}" title="{{ Menu.MenuName }}"></a>
-                        <a class="edit icon EditNav" data-id="{{ Menu.id }}" href="navigation/edit/{{ Menu.id }}"></a>
+                        <a class="edit icon EditNav" data-id="{{ Menu.id }}" href="craftnavigation/edit/{{ Menu.id }}"></a>
                     </td>
 
                 </tr>
