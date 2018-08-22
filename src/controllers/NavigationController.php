@@ -39,7 +39,7 @@
 
         public function actionLocation()
         {
-                    return $this->renderTemplate('navigation/menu/menulocation',['AllMenu'=>Navigation::$plugin->navigationService->GetAllNavigation()]);
+                    return $this->renderTemplate('craftnavigation/menu/menulocation',['AllMenu'=>Navigation::$plugin->navigationService->GetAllNavigation()]);
         }
 
         /**
@@ -50,7 +50,7 @@
          */
         public function actionIndex()
         {
-            return $this->renderTemplate('navigation/index',['MenuList'=>Navigation::$plugin->navigationService->GetMenuList()]);
+            return $this->renderTemplate('craftnavigation/index',['MenuList'=>Navigation::$plugin->navigationService->GetMenuList()]);
         }
 
 
@@ -124,7 +124,8 @@
          */
         public function actionEdit($NavId)
         {
-         return $this->renderTemplate('navigation/index',['MenuData'=>Navigation::$plugin->navigationService->GetNavigationById($NavId),'Menu'=>Navigation::$plugin->navigationService->GetMenuList()]);
+
+         return $this->renderTemplate('craftnavigation/index',['MenuData'=>Navigation::$plugin->navigationService->GetNavigationById($NavId),'Menu'=>Navigation::$plugin->navigationService->GetMenuList()]);
         }
 
         /**
