@@ -82,9 +82,9 @@
                             {% for menulist in Menu  %}
                                  <li>
                                      {% if menulist.MenuName == menuname %}
-                                         <a href="/admin/navigation/edit/{{ menulist.id }}" class="sel">{{ menulist.MenuName }}</a>
+                                         <a href="/admin/craftnavigation/edit/{{ menulist.id }}" class="sel">{{ menulist.MenuName }}</a>
                                          {% else %}
-                                             <a href="/admin/navigation/edit/{{ menulist.id }}">{{ menulist.MenuName }}</a>
+                                             <a href="/admin/craftnavigation/edit/{{ menulist.id }}">{{ menulist.MenuName }}</a>
                                      {% endif %}
 
 
@@ -100,7 +100,7 @@
                       <nav>
                       <ul style="list-style: none" id="groups">
                       {% for Menu in MenuList  %}
-                          <li><a href="/admin/navigation/edit/{{ Menu.id }}">{{ Menu.MenuName }}</a>
+                          <li><a href="/admin/craftnavigation/edit/{{ Menu.id }}">{{ Menu.MenuName }}</a>
                               <a class="delete icon DeleteNav" data-id="{{ Menu.id }}" title="{{ Menu.MenuName }}"></a>
                           </li>
                       {% endfor %}
