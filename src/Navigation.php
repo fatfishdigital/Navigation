@@ -182,7 +182,7 @@ class Navigation extends Plugin
     protected function settingsHtml(): string
     {
         return Craft::$app->view->renderTemplate(
-            'navigation/settings',
+            'craftnavigation/settings',
             [
                 'settings' => $this->getSettings()
             ]
