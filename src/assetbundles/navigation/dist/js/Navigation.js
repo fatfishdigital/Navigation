@@ -85,7 +85,7 @@ New menu from Entries list.
         var $SerializedMenu = $('ol.sortable').nestedSortable('toArray');
         var $id= $('#menuid').val();
         var $htmlmenu=$.trim($('#navigation-menu').html());
-         Craft.postActionRequest('/navigation/save',{menuname:$postData,menuArray:$SerializedMenu,id:$id,menuhtml:$htmlmenu},function (response, status) {
+         Craft.postActionRequest('/craftnavigation/save',{menuname:$postData,menuArray:$SerializedMenu,id:$id,menuhtml:$htmlmenu},function (response, status) {
            if(response==1)
            {
                Craft.cp.displayNotice('Menu Saved');
@@ -158,7 +158,7 @@ Custom menu
                     $('.namelabel').html($('#name').val());
                     $menuname.val($('#name').val());
 
-                    Craft.postActionRequest('/navigation/menusave',{data:$('#name').val(),siteid:Craft.siteId},function (response,status) {
+                    Craft.postActionRequest('/craftnavigation/menusave',{data:$('#name').val(),siteid:Craft.siteId},function (response,status) {
                                     if(status=="success")
                         {
 
@@ -175,7 +175,7 @@ Custom menu
                            Waiting for Craft People to respond to this issues.
                             */
 
-                            $(location).attr('href', '/admin/navigation/edit/'+response);
+                            $(location).attr('href', '/admin/craftnavigation/edit/'+response);
                         }
                         else
                         {
@@ -213,11 +213,11 @@ $('.DeleteNav').on('click',function () {
         onShow : function () {
             $('#MenuBtn').on('click',function () {
               var $id = $('.DeleteNav').data('id');
-              Craft.postActionRequest('/navigation/delete',{id:$id},function (response,status) {
+              Craft.postActionRequest('/craftnavigation/delete',{id:$id},function (response,status) {
                   if(status=="success")
                   {
                       Craft.cp.displayNotice("Menu Deleted Successfully !!");
-                      $(location).attr('href', '/admin/navigation');
+                      $(location).attr('href', '/admin/craftnavigation');
                   }
                   else {
                       Craft.cp.displayNotice("Cannot Delete Menu !");
@@ -255,13 +255,13 @@ function removeMenuNode($this) {
         onShow:function () {
             $('#Delete').on('click',function () {
                 $id='#'+$this.attr('id');
-                Craft.postActionRequest('/navigation/deletenode',{id:$this.attr('id')});
+                Craft.postActionRequest('/craftnavigation/deletenode',{id:$this.attr('id')});
                 $($id).remove();
                 var $postData = [{menuname:$('#menuname').val(),siteId:Craft.siteId}];
                 var $SerializedMenu = $('ol.sortable').nestedSortable('toArray');
                 var $id= $('#menuid').val();
                 var $htmlmenu=$.trim($('#navigation-menu').html());
-                Craft.postActionRequest('/navigation/save',{menuname:$postData,menuArray:$SerializedMenu,id:$id,menuhtml:$htmlmenu});
+                Craft.postActionRequest('/craftnavigation/save',{menuname:$postData,menuArray:$SerializedMenu,id:$id,menuhtml:$htmlmenu});
                 $DeleteNodeModal.hide();
                 $DeleteNodeModal.destroy();
             });
