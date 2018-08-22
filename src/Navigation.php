@@ -88,11 +88,11 @@ class Navigation extends Plugin
             UrlManager::class,
             UrlManager::EVENT_REGISTER_SITE_URL_RULES,
             function (RegisterUrlRulesEvent $event) {
-                $event->rules['navigation/save'] = 'navigation/navigation/save';
-                $event->rules['navigation/edit'] = 'navigation/navigation/edit';
-                $event->rules['navigation/delete'] = 'navigation/navigation/delete';
-                $event->rules['navigation/deletenode'] = 'navigation/navigation/menunodedelete';
-                $event->rules['navigation/menusave'] = 'navigation/navigation/menusave';
+                $event->rules['craftnavigation/save'] = 'craftnavigation/navigation/save';
+                $event->rules['craftnavigation/edit'] = 'craftnavigation/navigation/edit';
+                $event->rules['craftnavigation/delete'] = 'craftnavigation/navigation/delete';
+                $event->rules['craftnavigation/deletenode'] = 'craftnavigation/navigation/menunodedelete';
+                $event->rules['craftnavigation/menusave'] = 'craftnavigation/navigation/menusave';
             }
         );
 
@@ -101,10 +101,10 @@ class Navigation extends Plugin
             UrlManager::class,
             UrlManager::EVENT_REGISTER_CP_URL_RULES,
             function (RegisterUrlRulesEvent $event) {
-                $event->rules['menulocation'] = 'navigation/navigation/location';
-                $event->rules['navigation']='navigation/navigation/index';
-                $event->rules['navigation/edit/<NavId:\d+>']='navigation/navigation/edit';
-                $event->rules['navigation/menusave'] = 'navigation/navigation/menusave';
+                $event->rules['menulocation'] = 'craftnavigation/navigation/location';
+                $event->rules['craftnavigation']='craftnavigation/navigation/index';
+                $event->rules['craftnavigation/edit/<NavId:\d+>']='craftnavigation/navigation/edit';
+                $event->rules['craftnavigation/menusave'] = 'craftnavigation/navigation/menusave';
 
             }
         );
@@ -152,7 +152,7 @@ class Navigation extends Plugin
  */
         Craft::info(
             Craft::t(
-                'navigation',
+                'craftnavigation',
                 '{name} plugin loaded',
                 ['name' => $this->name]
             ),
