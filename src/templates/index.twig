@@ -87,7 +87,7 @@
                                              <a href="/admin/craftnavigation/edit/{{ menulist.id }}">{{ menulist.MenuName }}</a>
                                      {% endif %}
 
-
+                                    <a class="edit icon EditNav" data-id="{{ menulist.id }}" title="{{ menulist.MenuName }}"></a>
                                     <a class="delete icon DeleteNav" data-id="{{ menulist.id }}" title="{{ menulist.MenuName }}"></a>
                                 </li>
                             {% endfor %}
@@ -101,6 +101,7 @@
                       <ul style="list-style: none" id="groups">
                       {% for Menu in MenuList  %}
                           <li><a href="/admin/craftnavigation/edit/{{ Menu.id }}">{{ Menu.MenuName }}</a>
+                               <a class="edit icon EditNav" data-id="{{ Menu.id }}" title="{{ Menu.MenuName }}"></a>
                               <a class="delete icon DeleteNav" data-id="{{ Menu.id }}" title="{{ Menu.MenuName }}"></a>
                           </li>
                       {% endfor %}
@@ -234,6 +235,28 @@ Create New Menu dialog box
 
             </div>
         </footer>
+
+    </script>
+    
+    <script id="EditMenuName" type="text/template">
+        <div class="body">
+            <div class="field" id="node__url-name">
+                <div class="heading">
+                    <label class="required" for="name">{{ 'Edit Menu Name' }}</label>
+                </div>
+                <div class="input ltr">
+                    <input class="text menu-name fullwidth" type="text" id="name" autocomplete="off" required>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="buttons right">
+                <input type="button" class="btn submit" value="{{ 'Cancel'|t('app') }}" id="exit">
+                <input type="submit" class="btn submit" value="{{ 'Add'|t('app') }}" id="EditMenuBtn">
+            </div>
+        </footer>
+                </div>
+
 
     </script>
     {% js %}
