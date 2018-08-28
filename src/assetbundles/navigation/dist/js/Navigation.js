@@ -242,6 +242,42 @@ $('.DeleteNav').on('click',function () {
 
 });
 
+    *
+        Adding Navigation rename feature
+ */
+    $('.EditNav').on('click',function () {
+        var $EditMenuhtml = $('#EditMenuName').html();
+        var $EditModel = $('<div class="modal fitted"/>');
+        var $name = $(this).attr('title');
+        var $id = $(this).data('id');
+
+        $EditModel.append($EditMenuhtml);
+        var $modal = new Garnish.Modal($EditModel,{
+            
+            onShow: function () {
+                $('#name').val($name);
+                $('#EditMenuBtn').on('click',function () {
+
+                    var $newName = $('#name').val();
+                    Craft.postActionRequest('/craftnavigation/rename',{id:$id,name:$newName},function () {
+                        window.location.reload(true);
+                        $modal.hide();
+                        $modal.destroy();
+                    });
+                    $modal.hide();
+                    $modal.destroy();
+                });
+
+                $('#exit').on('click',function () {
+                    $modal.hide();
+                    $modal.destroy();
+                });
+
+            }
+        });
+    });
+
+    
 });
 /*
 Remove menu from list.
