@@ -93,6 +93,7 @@ class Navigation extends Plugin
                 $event->rules['craftnavigation/delete'] = 'craftnavigation/navigation/delete';
                 $event->rules['craftnavigation/deletenode'] = 'craftnavigation/navigation/menunodedelete';
                 $event->rules['craftnavigation/menusave'] = 'craftnavigation/navigation/menusave';
+                  $event->rules['craftnavigation/rename'] = 'craftnavigation/navigation/rename';
             }
         );
 
@@ -105,6 +106,7 @@ class Navigation extends Plugin
                 $event->rules['craftnavigation']='craftnavigation/navigation/index';
                 $event->rules['craftnavigation/edit/<NavId:\d+>']='craftnavigation/navigation/edit';
                 $event->rules['craftnavigation/menusave'] = 'craftnavigation/navigation/menusave';
+                  $event->rules['craftnavigation/rename'] = 'craftnavigation/navigation/rename';
 
             }
         );
