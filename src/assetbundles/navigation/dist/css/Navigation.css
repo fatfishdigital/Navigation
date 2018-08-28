@@ -149,6 +149,7 @@ a.delete.icon.DeleteNav {
     position: relative;
     float: right;
     bottom: 31px;
+    width : 20px;
 
 }
 .pane{
@@ -157,4 +158,16 @@ a.delete.icon.DeleteNav {
 a.delete.icon.DeleteNav:hover {
     background: none;
 
+}
+a.edit.icon.EditNav {
+    position: relative;
+    float: right;
+    bottom: 25px;
+    right: 31px;
+    width: 20px;
+}
+
+a.edit.icon.EditNav:hover
+{
+    background: none;
 }
