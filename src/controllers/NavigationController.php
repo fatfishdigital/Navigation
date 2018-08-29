@@ -183,17 +183,14 @@
         */
           public function actionRename()
         {
-
             if(Craft::$app->request->isAjax)
             {
-
-
-
                $id = Craft::$app->request->getBodyParam('id');
                $name = Craft::$app->request->getBodyParam('name');
                $Navigation = NavigationRecord::findOne(['id'=>$id]);
                $Navigation->MenuName = $name;
                $Navigation->save();
-            echo true;
+                echo true;
             }
+        }
     }
