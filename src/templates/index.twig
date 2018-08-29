@@ -82,9 +82,9 @@
                             {% for menulist in Menu  %}
                                  <li>
                                      {% if menulist.MenuName == menuname %}
-                                         <a href="/admin/craftnavigation/edit/{{ menulist.id }}" class="sel">{{ menulist.MenuName }}</a>
+                                         <a href="{{ url('craftnavigation/edit/' ~ menulist.id) }}" class="sel">{{ menulist.MenuName }}</a>
                                          {% else %}
-                                             <a href="/admin/craftnavigation/edit/{{ menulist.id }}">{{ menulist.MenuName }}</a>
+                                             <a href="{{ url('craftnavigation/edit/' ~ menulist.id) }}">{{ menulist.MenuName }}</a>
                                      {% endif %}
 
                                     <a class="edit icon EditNav" data-id="{{ menulist.id }}" title="{{ menulist.MenuName }}"></a>
@@ -100,7 +100,7 @@
                       <nav>
                       <ul style="list-style: none" id="groups">
                       {% for Menu in MenuList  %}
-                          <li><a href="/admin/craftnavigation/edit/{{ Menu.id }}">{{ Menu.MenuName }}</a>
+                          <li><a href="{{ url('craftnavigation/edit/' ~ Menu.id) }}">{{ Menu.MenuName }}</a>
                                <a class="edit icon EditNav" data-id="{{ Menu.id }}" title="{{ Menu.MenuName }}"></a>
                               <a class="delete icon DeleteNav" data-id="{{ Menu.id }}" title="{{ Menu.MenuName }}"></a>
                           </li>
