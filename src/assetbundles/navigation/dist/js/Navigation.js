@@ -242,7 +242,7 @@ $('.DeleteNav').on('click',function () {
 
 });
 
-    *
+   /*
         Adding Navigation rename feature
  */
     $('.EditNav').on('click',function () {
