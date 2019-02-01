@@ -103,9 +103,9 @@ class NavigationService extends Component
      * @param $nodeId
      * @return bool
      */
-    public function CheckNodeElementId($nodeId)
+    public function CheckNodeElementId($nodeId,$menuId)
     {
-        $NodeElementId = NavigationNodeElemenetRecord::find()->select('id')->where(['NodeId'=>$nodeId])->all();
+        $NodeElementId = NavigationNodeElemenetRecord::find()->select('id')->where(['NodeId'=>$nodeId,'menuId'=> $menuId] )->all();
         if(isset($NodeElementId[0]['id']))
         {
             return $NodeElementId[0]['id'];
@@ -122,7 +122,7 @@ class NavigationService extends Component
      */
     public function SaveNodeElement(NavigationNodeModel $model)
     {
-            $id=$this->CheckNodeElementId($model->NodeId);
+            $id=$this->CheckNodeElementId($model->NodeId,$model->menuId);
 
             if(!$id)
             {
@@ -202,10 +202,10 @@ class NavigationService extends Component
         $NavigationNodeElementRecord = new NavigationNodeElemenetRecord();
         return $NavigationNodeElementRecord::find()->where(['menuId'=>(int)$this->findByName($handleName)])->orderBy(['MenuOrder'=>'asc'])->all();
     }
-    public function GetChild($nodeId)
+    public function GetChild($nodeId,$menuId)
     {
         $NavigationNodeElementRecord = new NavigationNodeElemenetRecord();
-        return $NavigationNodeElementRecord::find()->where(['ParenNode'=>(int)$nodeId])->orderBy(['MenuOrder'=>'asc'])->all();
+        return $NavigationNodeElementRecord::find()->where(['ParenNode'=>(int)$nodeId,'menuId'=>(int)$menuId])->orderBy(['MenuOrder'=>'asc'])->all();
     }
     /*
      * param Navigation Model

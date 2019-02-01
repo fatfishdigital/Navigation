@@ -293,11 +293,12 @@ function removeMenuNode($this) {
                 $id='#'+$this.attr('id');
                 Craft.postActionRequest('/craftnavigation/deletenode',{id:$this.attr('id')});
                 $($id).remove();
+                var $menuId = $('#menuid').val();
                 var $postData = [{menuname:$('#menuname').val(),siteId:Craft.siteId}];
                 var $SerializedMenu = $('ol.sortable').nestedSortable('toArray');
                 var $id= $('#menuid').val();
                 var $htmlmenu=$.trim($('#navigation-menu').html());
-                Craft.postActionRequest('/craftnavigation/save',{menuname:$postData,menuArray:$SerializedMenu,id:$id,menuhtml:$htmlmenu});
+                Craft.postActionRequest('/craftnavigation/save',{menuname:$postData,menuArray:$SerializedMenu,menuId:$menuId,id:$id,menuhtml:$htmlmenu});
                 $DeleteNodeModal.hide();
                 $DeleteNodeModal.destroy();
             });

@@ -20,12 +20,10 @@
                 echo $template;
 
         }
-        public function renderChildren($NodeId)
+        public function renderChildren($NodeId,$menuId)
         {
 
-          return Navigation::$plugin->navigationService->GetChild($NodeId);
-
-
+          return Navigation::$plugin->navigationService->GetChild($NodeId,$menuId);
 
         }
 

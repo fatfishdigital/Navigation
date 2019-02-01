@@ -154,7 +154,8 @@
 
                 $MenuNode = new NavigationNodeElemenetRecord();
                 $NodeId = (int)str_replace('menuItem_','',Craft::$app->request->getBodyParam('id'));
-               if($MenuNode::deleteAll(['NodeId'=>$NodeId]))
+                $MenuId = (int)str_replace('menuItem_','',Craft::$app->request->getBodyParam('menuId'));
+               if($MenuNode::deleteAll(['NodeId'=>$NodeId,'menuId'=>$MenuId]))
                {
                    echo true;
                }
