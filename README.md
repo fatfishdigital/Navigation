@@ -57,61 +57,61 @@ This will let you build your own HTML menu with Twig Macros.
 
 Sample custom menu:
 
+{% import _self as macros %}
+{% macro menu(node,menuId) %}
     {% import _self as macros %}
-    {% macro menu(node) %}
-        {% import _self as macros %}
-        {% set Grandchildren = craft.Navigation.renderChildren(node) %}
-        {% if Grandchildren | length > (0) %}
-            <ul>
-                {% for grandchildren in Grandchildren  %}
-                    <li>
-                        <a href="{% if craft.entries.id(grandchildren.NodeId).one().uri is defined %}/{{craft.entries.id(grandchildren.NodeId).one().uri}}{% else %}{{ grandchildren.menuUrl }}  {% endif %}">{{ grandchildren.NodeName }}</a>
-                        {{ macros.menu(grandchildren.NodeId) }}
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endmacro %}
-    
-    
-    <ul>
-    {% set MenuNodes=craft.Navigation.getRawNav('MenuName') %}
-       {% if MenuNodes is defined  %}
-            {% if MenuNodes is iterable %}
-    
-                {% for MenuNode in MenuNodes %}
-    
-                       {% if MenuNode.ParenNode == (0)  %}
-    
-                           {% if craft.Navigation.renderChildren(MenuNode.NodeId) is iterable %}
-                               <li>
-    
-                                   <a href="{% if craft.entries.id(MenuNode.NodeId).one().uri is defined %}/{{craft.entries.id(MenuNode.NodeId).one().uri}}{% else %}{{ MenuNode.menuUrl }}  {% endif %}">{{ MenuNode.NodeName }}</a>
-                                  
-                                 {% if craft.Navigation.renderChildren(MenuNode.NodeId) | length %}
-                                   <ul>
-                                      {% for childrenMenu in  craft.Navigation.renderChildren(MenuNode.NodeId) %}
-                                          <li>
-                                              <a href="{% if craft.entries.id(childrenMenu.NodeId).one().uri is defined %}/{{craft.entries.id(childrenMenu.NodeId).one().uri}}{% else %}{{ childrenMenu.menuUrl }}  {% endif %}">{{ childrenMenu.NodeName }}</a>
-                                              {{ macros.menu(childrenMenu.NodeId) }}
-    
-                                          </li>
-                                       {% endfor %}
-    
-                                   </ul>
-                                     {% endif %}
-                               </li>
-                               {% else %}
-    
-                            {% endif %}
-                    {% else %}
-                    {% endif %}
-    
-                {% endfor %}
+    {% set Grandchildren = craft.Navigation.renderChildren(node,menuId) %}
+    {% if Grandchildren | length > (0) %}
+        <ul>
+            {% for grandchildren in Grandchildren  %}
+                <li>
+                    <a href="{% if craft.entries.id(grandchildren.NodeId).one().uri is defined %}/{{craft.entries.id(grandchildren.NodeId).one().uri}}{% else %}{{ grandchildren.menuUrl }}  {% endif %}">{{ grandchildren.NodeName }}</a>
+                    {{ macros.menu(grandchildren.NodeId,grandchildren.menuId) }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endmacro %}
+
+
+<ul>
+{% set MenuNodes=craft.Navigation.getRawNav('MenuName') %}
+   {% if MenuNodes is defined  %}
+        {% if MenuNodes is iterable %}
+
+            {% for MenuNode in MenuNodes %}
+
+                   {% if MenuNode.ParenNode == (0)  %}
+
+                       {% if craft.Navigation.renderChildren(MenuNode.NodeId,MenuNode.menuId) is iterable %}
+                           <li>
+
+                               <a href="{% if craft.entries.id(MenuNode.NodeId).one().uri is defined %}/{{craft.entries.id(MenuNode.NodeId).one().uri}}{% else %}{{ MenuNode.menuUrl }}  {% endif %}">{{ MenuNode.NodeName }}</a>
+                              
+                             {% if craft.Navigation.renderChildren(MenuNode.NodeId,MenuNode.menuId) | length %}
+                               <ul>
+                                  {% for childrenMenu in  craft.Navigation.renderChildren(MenuNode.NodeId,MenuNode.menuId) %}
+                                      <li>
+                                          <a href="{% if craft.entries.id(childrenMenu.NodeId).one().uri is defined %}/{{craft.entries.id(childrenMenu.NodeId).one().uri}}{% else %}{{ childrenMenu.menuUrl }}  {% endif %}">{{ childrenMenu.NodeName }}</a>
+                                          {{ macros.menu(childrenMenu.NodeId,childrenMenu.menuId) }}
+
+                                      </li>
+                                   {% endfor %}
+
+                               </ul>
+                                 {% endif %}
+                           </li>
+                           {% else %}
+
+                        {% endif %}
+                {% else %}
                 {% endif %}
-    {% else %}
-     {% endif %}
-    </ul>
+
+            {% endfor %}
+            {% endif %}
+{% else %}
+ {% endif %}
+</ul>
 
 
 Brought to you by [Fatfish](https://fatfish.com.au)
