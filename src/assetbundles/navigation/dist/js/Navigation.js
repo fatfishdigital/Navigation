@@ -175,7 +175,7 @@ Custom menu
                            Waiting for Craft People to respond to this issues.
                             */
 
-                            $(location).attr('href', '/admin/craftnavigation/edit/'+response);
+                            $(location).attr('href', Craft.baseCpUrl + '/craftnavigation/edit/'+response);
                         }
                         else
                         {
@@ -217,7 +217,7 @@ $('.DeleteNav').on('click',function () {
                   if(status=="success")
                   {
                       Craft.cp.displayNotice("Menu Deleted Successfully !!");
-                      $(location).attr('href', '/admin/craftnavigation');
+                      $(location).attr('href', Craft.baseCpUrl + '/craftnavigation');
                   }
                   else {
                       Craft.cp.displayNotice("Cannot Delete Menu !");
