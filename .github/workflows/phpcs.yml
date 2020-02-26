@@ -9,6 +9,6 @@ jobs:
       steps:
         - uses: actions/checkout@v1
         - name: PHPCS check
-          uses: fatfishdigital/Navigation@master
+          uses: chekalsky/phpcs-action@v1
           with:
                 enable_warnings: true
