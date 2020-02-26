@@ -7,7 +7,7 @@ jobs:
       name: PHPCS
       runs-on: ubuntu-latest
       steps:
-        - uses: actions/checkout@master
+        - uses: fatfish/Navigation@master
         - name: PHPCS check
           uses: chekalsky/phpcs-action@v1
           with:
