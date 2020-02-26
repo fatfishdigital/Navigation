@@ -1,4 +1,5 @@
 # Navigation plugin for Craft CMS 3.x
+![PHPCS check](https://github.com/fatfishdigital/Navigation/workflows/PHPCS%20check/badge.svg?branch=master&event=push)
 
 Craft navigation plugin for the website.
 
