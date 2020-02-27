@@ -3,9 +3,9 @@
     {% import _self as macros %}
     {% set Grandchildren = craft.Navigation.renderChildren(node) %}
     {% if Grandchildren | length > (0) %}
-        <ul>
+        <ul class="nav-has-children">
             {% for grandchildren in Grandchildren  %}
-                <li>
+                <li class="nav-grandchildren">
                         {% set grandchildren_children = craft.Navigation.renderChildren(grandchildren)|length %}
                             {% if grandchildren_children > (0) %}
                                 <a href="{{ grandchildren.menuUrl }}">{{ grandchildren.NodeName }}</a>
@@ -24,9 +24,9 @@
     {% import _self as macros %}
     {% set Grandchildren = craft.Navigation.renderChildren(node) %}
     {% if Grandchildren | length > (0) %}
-        <ul>
+        <ul class="nav-has-children">
             {% for grandchildren in Grandchildren  %}
-                <li>
+                <li class="nav-grandchildren">
                     {% set grandchildren_children = craft.Navigation.renderChildren(grandchildren)|length %}
                     {% if grandchildren_children > (0) %}
                         <a href="/{{ craft.entries.id(grandchildren.NodeId).one().uri }}">{{ grandchildren.NodeName }}</a>

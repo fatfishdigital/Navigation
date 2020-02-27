@@ -85,7 +85,7 @@ New menu from Entries list.
         var $SerializedMenu = $('ol.sortable').nestedSortable('toArray');
         var $id= $('#menuid').val();
         var $htmlmenu=$.trim($('#navigation-menu').html());
-         Craft.postActionRequest('/craftnavigation/save',{menuname:$postData,menuArray:$SerializedMenu,id:$id,menuhtml:$htmlmenu},function (response, status) {
+            Craft.postActionRequest(Craft.baseSiteUrl+'craftnavigation/save',{menuname:$postData,menuArray:$SerializedMenu,id:$id,menuhtml:$htmlmenu},function (response, status) {
            if(response==1)
            {
                Craft.cp.displayNotice('Menu Saved');
@@ -158,7 +158,7 @@ Custom menu
                     $('.namelabel').html($('#name').val());
                     $menuname.val($('#name').val());
 
-                    Craft.postActionRequest('/craftnavigation/menusave',{data:$('#name').val(),siteid:Craft.siteId},function (response,status) {
+                    Craft.postActionRequest(Craft.baseSiteUrl+'craftnavigation/menusave',{data:$('#name').val(),siteid:Craft.siteId},function (response,status) {
                                     if(status=="success")
                         {
 
@@ -213,7 +213,7 @@ $('.DeleteNav').on('click',function () {
         onShow : function () {
             $('#MenuBtn').on('click',function () {
               var $id = $('.DeleteNav').data('id');
-              Craft.postActionRequest('/craftnavigation/delete',{id:$id},function (response,status) {
+              Craft.postActionRequest(Craft.baseSiteUrl+'craftnavigation/delete',{id:$id},function (response,status) {
                   if(status=="success")
                   {
                       Craft.cp.displayNotice("Menu Deleted Successfully !!");
@@ -253,13 +253,13 @@ $('.DeleteNav').on('click',function () {
 
         $EditModel.append($EditMenuhtml);
         var $modal = new Garnish.Modal($EditModel,{
-            
+
             onShow: function () {
                 $('#name').val($name);
                 $('#EditMenuBtn').on('click',function () {
 
                     var $newName = $('#name').val();
-                    Craft.postActionRequest('/craftnavigation/rename',{id:$id,name:$newName},function () {
+                    Craft.postActionRequest(Craft.baseSiteUrl+'craftnavigation/rename',{id:$id,name:$newName},function () {
                         window.location.reload(true);
                         $modal.hide();
                         $modal.destroy();
@@ -277,7 +277,7 @@ $('.DeleteNav').on('click',function () {
         });
     });
 
-    
+
 });
 /*
 Remove menu from list.
@@ -291,14 +291,14 @@ function removeMenuNode($this) {
         onShow:function () {
             $('#Delete').on('click',function () {
                 $id='#'+$this.attr('id');
-                Craft.postActionRequest('/craftnavigation/deletenode',{id:$this.attr('id')});
+                Craft.postActionRequest(Craft.baseSiteUrl+'craftnavigation/deletenode',{id:$this.attr('id')});
                 $($id).remove();
                 var $menuId = $('#menuid').val();
                 var $postData = [{menuname:$('#menuname').val(),siteId:Craft.siteId}];
                 var $SerializedMenu = $('ol.sortable').nestedSortable('toArray');
                 var $id= $('#menuid').val();
                 var $htmlmenu=$.trim($('#navigation-menu').html());
-                Craft.postActionRequest('/craftnavigation/save',{menuname:$postData,menuArray:$SerializedMenu,menuId:$menuId,id:$id,menuhtml:$htmlmenu});
+                Craft.postActionRequest(Craft.baseSiteUrl+'craftnavigation/save',{menuname:$postData,menuArray:$SerializedMenu,menuId:$menuId,id:$id,menuhtml:$htmlmenu});
                 $DeleteNodeModal.hide();
                 $DeleteNodeModal.destroy();
             });
