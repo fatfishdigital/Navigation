@@ -2,7 +2,7 @@
     "name": "fatfish/navigation",
     "description": "Craft navigation for the website.",
     "type": "craft-plugin",
-    "version": "1.0.7",
+    "version": "1.0.8-beta",
     "keywords": [
         "craft",
         "cms",
@@ -34,7 +34,7 @@
         "handle": "craftnavigation",
         "hasCpSettings": true,
         "hasCpSection": true,
-        "changelogUrl": "https://raw.githubusercontent.com/https://github.com/fatfishdigital/navigation/master/CHANGELOG.md",
+        "changelogUrl": "https://github.com/fatfishdigital/navigation/master/CHANGELOG.md",
         "components": {
             "navigationService": "fatfish\\navigation\\services\\NavigationService"
         },
