@@ -67,7 +67,7 @@
 
                             {% if does_craft_page_has_child > (0) %}
                                 <li class="{% if menucss.listClass is defined %} {{ menucss.listClass }} {% endif %}">
-                                    {{ Nodes.NodeName }}
+                                    <a href="{{ craft.entries.id(Nodes.NodeId).one().uri}}"> {{ Nodes.NodeName }}</a>
                                     {{ macros.craft_internal_page_menu(Nodes) }}
                                 </li>
                             {% else %}
