@@ -72,7 +72,7 @@
                                 </li>
                             {% else %}
                                 <li class="{% if menucss.listClass is defined %} {{ menucss.listClass }} {% endif %}">
-                                    <a href="{{ craft.entries.id(Nodes.NodeId).one().uri }}" class="">{{ Nodes.NodeName }}</a>
+                                    <a href="/{{ craft.entries.id(Nodes.NodeId).one().uri }}" class="">{{ Nodes.NodeName }}</a>
                                 </li>
                             {% endif %}
 
