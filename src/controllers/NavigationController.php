@@ -50,6 +50,7 @@
          */
         public function actionIndex()
         {
+
             return $this->renderTemplate('craftnavigation/index',['MenuList'=>Navigation::$plugin->navigationService->GetMenuList()]);
         }
 
@@ -68,16 +69,12 @@
             $this->model->siteId = Craft::$app->request->getBodyParam('menuname')[0]['siteId'];
             $this->model->MenuName = Craft::$app->request->getBodyParam('menuname')[0]['menuname'];
             $this->model->MenuHtml = Craft::$app->request->getBodyParam('menuhtml');
-
-
-              if($this->FindNodeMenuItem(Craft::$app->request->getBodyParam('menuArray'),Navigation::$plugin->navigationService->saveNavigation($this->model,Craft::$app->request->getBodyParam('id'))))
-               {
-                echo true;
-
-              }
+            $MenuItems=  Craft::$app->request->getBodyParam('menuArray'); //fetch html structure of menu from ajax request
+            $MenuId= Navigation::$plugin->navigationService->saveNavigation($this->model,Craft::$app->request->getBodyParam('id'));
+             if($this->FindNodeMenuItem($MenuItems,$MenuId))
+                 echo true;
+             exit();
             }
-
-
         }
 
 
@@ -89,19 +86,16 @@
          */
         public function FindNodeMenuItem($menuItems,$MenuId)
         {
-
-
-
            foreach ($menuItems as $menuItem):
                 if(isset($menuItem['id']) && (!is_null($menuItem['id']) || !empty($menuItem['id'])))
                 {
-                    $this->NavigationNodeModel->NodeName=$menuItem['title'];
+                   $this->NavigationNodeModel->NodeName=$menuItem['title'];
                    $this->NavigationNodeModel->NodeId = (int)$menuItem['id'];
                    $this->NavigationNodeModel->ParenNode = (int)$menuItem['parent_id'];
                    $this->NavigationNodeModel->menuId = $MenuId;
                    $this->NavigationNodeModel->menuUrl = $menuItem['url'];
                    $this->NavigationNodeModel->MenuOrder = array_search($menuItem,$menuItems);
-                    if($this->NavigationNodeModel->validate())
+                     if($this->NavigationNodeModel->validate())
                     {
                       Navigation::$plugin->navigationService->SaveNodeElement($this->NavigationNodeModel);
 
@@ -192,6 +186,7 @@
                $Navigation->MenuName = $name;
                $Navigation->save();
                 echo true;
+                exit();
             }
         }
     }

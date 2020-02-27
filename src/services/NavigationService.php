@@ -147,6 +147,7 @@ class NavigationService extends Component
                 $record->MenuOrder       = $model->MenuOrder;
                  $record->update(true);
             }
+            return;
 
     }
 
@@ -174,7 +175,9 @@ class NavigationService extends Component
      * @param $id
      * @return bool
      *             this will delete parent menu and child menu
-     *             TODO : i think there will be problem lets suppose there is no parent menu and but there exist a child menu which have prarent but its orphan now :D :D :D
+     *             TODO : i think there will be problem lets suppose
+     * there is no parent menu and but there exist a child menu which
+     * have prarent but its orphan now :D :D :D
      *
      */
     public function DeleteNavById($id)
@@ -199,13 +202,20 @@ class NavigationService extends Component
     public function GetNavigationByName($handleName)
     {
 
-        $NavigationNodeElementRecord = new NavigationNodeElemenetRecord();
-        return $NavigationNodeElementRecord::find()->where(['menuId'=>(int)$this->findByName($handleName)])->orderBy(['MenuOrder'=>'asc'])->all();
+       $NavigationNodeElementRecord = new NavigationNodeElemenetRecord();
+       return $NavigationNodeElementRecord::find()->where(['menuId'=>(int)$this->findByName($handleName)])->orderBy(['MenuOrder'=>'asc'])->all();
     }
-    public function GetChild($nodeId,$menuId)
+
+    /**
+     * @param $nodeId integer
+     * @return mixed
+     * finds children of a particular menu with parenNode
+     */
+    public function GetChild($nodeId)
     {
+
         $NavigationNodeElementRecord = new NavigationNodeElemenetRecord();
-        return $NavigationNodeElementRecord::find()->where(['ParenNode'=>(int)$nodeId,'menuId'=>(int)$menuId])->orderBy(['MenuOrder'=>'asc'])->all();
+       return $NavigationNodeElementRecord::find()->where(['ParenNode'=>(int)$nodeId])->orderBy(['MenuOrder'=>'asc'])->all();
     }
     /*
      * param Navigation Model

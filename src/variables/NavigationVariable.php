@@ -9,21 +9,33 @@
     namespace fatfish\navigation\variables;
     use fatfish\navigation\Navigation;
     use Craft;
+    use craft\web\View;
     class NavigationVariable
     {
 
 
         public function render($MenuName, array $options=[])
         {
-                Craft::$app->view->setTemplateMode('cp');
-                $template= Craft::$app->view->renderTemplate('navigation/_renderMenu/index',['MenuNodes'=>Navigation::$plugin->navigationService->GetNavigationByName($MenuName),'menucss'=>$options]);
-                echo $template;
+
+
+           $oldMode= Craft::$app->view->getTemplateMode();
+           Craft::$app->view->setTemplateMode(View::TEMPLATE_MODE_CP);
+           $html=Craft::$app->view->renderTemplate('craftnavigation/_renderMenu/index',['MenuNodes'=>Navigation::$plugin->navigationService->GetNavigationByName($MenuName),'menucss'=>$options]);
+           Craft::$app->view->setTemplateMode($oldMode);
+           echo $html;
 
         }
-        public function renderChildren($NodeId,$menuId)
+
+        /**
+         * @param $NodeId object
+         * @return array
+         */
+        public function renderChildren($NodeId)
         {
 
-          return Navigation::$plugin->navigationService->GetChild($NodeId,$menuId);
+            $id=$NodeId->NodeId;
+
+          return Navigation::$plugin->navigationService->GetChild($id);
 
         }
 
