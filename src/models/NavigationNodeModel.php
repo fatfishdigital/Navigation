@@ -18,6 +18,7 @@
         public $menuId;
         public $menuUrl;
         public $MenuOrder;
+        public $UniqueId;
 
 
 
@@ -30,7 +31,8 @@
                             ['ParenNode','required'],
                             ['menuId','required'],
                             ['menuUrl','default','value'=>''],
-                            ['MenuOrder','required']
+                            ['MenuOrder','required'],
+                            ['UniqueId','default']
 
                         ];
         }

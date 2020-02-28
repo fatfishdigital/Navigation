@@ -21,6 +21,7 @@ $(document).ready(function () {
     $CreateMenu = $('#create_menu').html();
     $menuname = $('#menuname');
     $btnCustomUrl = $('#customPage');
+    $uniqueId=null;
 
 /*
 New menu from Entries list.
@@ -29,22 +30,28 @@ New menu from Entries list.
 
         new Craft.BaseElementSelectorModal('craft\\elements\\Entry', {
             onSelect: function (element) {
-                    for(var $i=0;$i<element.length;$i++) {
+                min = Math.ceil(1);
+                max = Math.floor(1000);
+                $uniqueId= Math.floor(Math.random() * (max - min)) + min;
+
+                for(var $i=0;$i<element.length;$i++) {
                         // var $tr = $("<tr>");
                         // var $td = $("<td>");
                         var $moveicon = $("<a>").addClass("move icon").attr({title: "Reorder", role: "button"});
                         var $listitem = $("<li>").addClass("mjs-nestedSortable-branch mjs-nestedSortable-expanded").attr({
                             id: "menuItem_" + element[$i].id,
                             title: element[$i].label,
-                            style: "display:list-item"
+                            style: "display:list-item",
+                            dataUniqueId:"data_"+$uniqueId
                         });
                         var $menuDiv = $("<div>").addClass("element small hasstatus menuDiv");
                         var $editlink = $("<a>").addClass("menusettings").attr({
                             title: "setting",
                             role: "button",
                             id: "menuItem_" + element[$i].id,
-                            onclick: 'updateNode($(this))'
-                        }).html(element[$i].label);
+                            onclick: 'updateNode($(this))',
+                            "data-uid":$uniqueId
+                                             }).html(element[$i].label);
                         var $menulabel = $("<span>").addClass("menulabel").append($editlink).append("&nbsp;");
                         var $deletelink = $("<a>").addClass("delete icon deletenode").attr({
                             title: "delete",
@@ -85,7 +92,7 @@ New menu from Entries list.
         var $SerializedMenu = $('ol.sortable').nestedSortable('toArray');
         var $id= $('#menuid').val();
         var $htmlmenu=$.trim($('#navigation-menu').html());
-            Craft.postActionRequest(Craft.baseSiteUrl+'craftnavigation/save',{menuname:$postData,menuArray:$SerializedMenu,id:$id,menuhtml:$htmlmenu},function (response, status) {
+            Craft.postActionRequest(Craft.baseSiteUrl+'craftnavigation/save',{menuname:$postData,menuArray:$SerializedMenu,id:$id,menuhtml:$htmlmenu,UniqueId:$uniqueId},function (response, status) {
            if(response==1)
            {
                Craft.cp.displayNotice('Menu Saved');
@@ -321,15 +328,17 @@ function removeMenuNode($this) {
 /*
     when any node is updated this will change the value of each updated node.
  */
-function updateNode($this)
+function updateNode(e)
 {
 
 
-    $id = '#'+$($this).attr('id');
-    $menuname = $($id).find('div').find('span').find('a').html();
+    $id = '#'+$(e).attr('id');
+    // $menuname = $($id).find('div').find('span').find('a').html();
+    $menuname = $(e).text();
     $url = $($id).attr('url');
     $formBody = $('<div class="modal fitted"/>');
     $($formElement).appendTo($formBody);
+    debugger;
     $modal = new Garnish.Modal($formBody, {
         onShow: function () {
 
@@ -342,9 +351,9 @@ function updateNode($this)
             }
            var $CustomButton = $('#BtnCustomUrl');
             $CustomButton.on('click', function () {
-               $($id).children('div').children('span').find('a').html($('#name').val());
-               $($id).attr('title',$('#name').val());
-               $($id).attr('url',$('#url').val());
+               $(e).text($('#name').val());
+               $(e).attr('title',$('#name').val());
+               $(e).attr('url',$('#url').val());
                $modal.hide();
                $modal.destroy();
             });

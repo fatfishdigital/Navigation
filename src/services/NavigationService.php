@@ -103,9 +103,9 @@ class NavigationService extends Component
      * @param $nodeId
      * @return bool
      */
-    public function CheckNodeElementId($nodeId,$menuId)
+    public function CheckNodeElementId($nodeId,$menuId,$uniqueId)
     {
-        $NodeElementId = NavigationNodeElemenetRecord::find()->select('id')->where(['NodeId'=>$nodeId,'menuId'=> $menuId] )->all();
+        $NodeElementId = NavigationNodeElemenetRecord::find()->select('id')->where(['NodeId'=>$nodeId,'menuId'=> $menuId,'UniqueId'=>$uniqueId] )->all();
         if(isset($NodeElementId[0]['id']))
         {
             return $NodeElementId[0]['id'];
@@ -122,7 +122,8 @@ class NavigationService extends Component
      */
     public function SaveNodeElement(NavigationNodeModel $model)
     {
-            $id=$this->CheckNodeElementId($model->NodeId,$model->menuId);
+            $id=$this->CheckNodeElementId($model->NodeId,$model->menuId,$model->UniqueId);
+
 
             if(!$id)
             {
@@ -133,6 +134,7 @@ class NavigationService extends Component
                 $record->menuId          = $model->menuId;
                 $record->menuUrl         = $model->menuUrl;
                 $record->MenuOrder       = $model->MenuOrder;
+                $record->UniqueId        = $model->UniqueId;
                 $record->save(true);
 
             }
@@ -145,6 +147,7 @@ class NavigationService extends Component
                 $record->menuId          = $model->menuId;
                 $record->menuUrl         = $model->menuUrl;
                 $record->MenuOrder       = $model->MenuOrder;
+                $record->UniqueId        = $model->UniqueId;
                  $record->update(true);
             }
             return;

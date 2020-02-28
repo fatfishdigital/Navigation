@@ -69,11 +69,12 @@
             $this->model->siteId = Craft::$app->request->getBodyParam('menuname')[0]['siteId'];
             $this->model->MenuName = Craft::$app->request->getBodyParam('menuname')[0]['menuname'];
             $this->model->MenuHtml = Craft::$app->request->getBodyParam('menuhtml');
+            $UniqueId=Craft::$app->request->getBodyParam('UniqueId');
             $MenuItems=  Craft::$app->request->getBodyParam('menuArray'); //fetch html structure of menu from ajax request
             $MenuId= Navigation::$plugin->navigationService->saveNavigation($this->model,Craft::$app->request->getBodyParam('id'));
-             if($this->FindNodeMenuItem($MenuItems,$MenuId))
+             if($this->FindNodeMenuItem($MenuItems,$MenuId,$UniqueId))
                  echo true;
-             exit();
+                 exit();
             }
         }
 
@@ -84,8 +85,10 @@
          *
          * @param $MenuId
          */
-        public function FindNodeMenuItem($menuItems,$MenuId)
+        public function FindNodeMenuItem($menuItems,$MenuId,$UID)
         {
+
+
            foreach ($menuItems as $menuItem):
                 if(isset($menuItem['id']) && (!is_null($menuItem['id']) || !empty($menuItem['id'])))
                 {
@@ -95,6 +98,7 @@
                    $this->NavigationNodeModel->menuId = $MenuId;
                    $this->NavigationNodeModel->menuUrl = $menuItem['url'];
                    $this->NavigationNodeModel->MenuOrder = array_search($menuItem,$menuItems);
+                   $this->NavigationNodeModel->UniqueId =$UID;
                      if($this->NavigationNodeModel->validate())
                     {
                       Navigation::$plugin->navigationService->SaveNodeElement($this->NavigationNodeModel);
