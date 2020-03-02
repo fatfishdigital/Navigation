@@ -88,7 +88,6 @@ New menu from Entries list.
         }
         var $postData = [{menuname:$('#menuname').val(),siteId:Craft.siteId}];
         var $SerializedMenu = $('ol.sortable').nestedSortable('toArray');
-        debugger;
         var $id= $('#menuid').val();
         var $htmlmenu=$.trim($('#navigation-menu').html());
             Craft.postActionRequest(Craft.baseSiteUrl+'craftnavigation/save',{menuname:$postData,menuArray:$SerializedMenu,id:$id,menuhtml:$htmlmenu,UniqueId:$uniqueId},function (response, status) {
@@ -163,7 +162,6 @@ Custom menu
                 $('#MenuBtn').on('click', function () {
                     $('.namelabel').html($('#name').val());
                     $menuname.val($('#name').val());
-debugger;
                     Craft.postActionRequest(Craft.baseSiteUrl+'craftnavigation/menusave',{data:$('#name').val(),siteid:Craft.siteId},function (response,status) {
                                     if(status=="success")
                         {
