@@ -48,36 +48,52 @@
     {% if MenuNodes is defined %}
         {% if MenuNodes is iterable %}
            {% for Nodes in MenuNodes %}
+                {# check whether its external and or internal page #}
+
+               {%  if craft.entries.id(Nodes.NodeId).one().uri is defined %}
+               {# this is internal node #}
                 {% if Nodes.ParenNode == (0) %}
-                        {% if craft.entries.id(Nodes.NodeId).one() is null  %} {# for external links #}
-                          {% set has_child_menu= craft.Navigation.renderChildren(Nodes)|length %}
-                            {% if has_child_menu > (0) %}
-                                <li class="{% if menucss.listClass is defined %} {{ menucss.listClass }} {% endif %}">
-                                {{ Nodes.NodeName }}
-                                {{ macros.menu(Nodes) }}
-                                </li>
-                                {% else %}
-                                 <li class="{% if menucss.listClass is defined %} {{ menucss.listClass }} {% endif %}">
-                                 <a href="{{ Nodes.menuUrl }}" class="">{{ Nodes.NodeName }}</a>
-                                 </li>
-                                {% endif %}
 
-                        {% else %} {# this is craft internal page#}
-                        {% set does_craft_page_has_child = craft.Navigation.renderChildren(Nodes)|length %}
+                    {% set has_child_menu= craft.Navigation.renderChildren(Nodes)|length %}
+                    {% if has_child_menu > (0) %}
+                        <li class="{% if menucss.listClass is defined %} {{ menucss.listClass }} {% endif %}">
+                            <a href="{{ url(craft.entries.id(Nodes.NodeId).one().uri)}}"> {{ Nodes.NodeName }}</a>
+                            {{ macros.craft_internal_page_menu(Nodes) }}
+                        </li>
+                    {% else %}
+                        <li class="{% if menucss.listClass is defined %} {{ menucss.listClass }} {% endif %}">
+                            <a href="{{ Nodes.menuUrl }}" class="">{{ Nodes.NodeName }}</a>
+                        </li>
+                    {% endif %}
 
-                            {% if does_craft_page_has_child > (0) %}
-                                <li class="{% if menucss.listClass is defined %} {{ menucss.listClass }} {% endif %}">
-                                    <a href="{{ craft.entries.id(Nodes.NodeId).one().uri}}"> {{ Nodes.NodeName }}</a>
-                                    {{ macros.craft_internal_page_menu(Nodes) }}
-                                </li>
-                            {% else %}
-                                <li class="{% if menucss.listClass is defined %} {{ menucss.listClass }} {% endif %}">
-                                    <a href="/{{ craft.entries.id(Nodes.NodeId).one().uri }}" class="">{{ Nodes.NodeName }}</a>
-                                </li>
-                            {% endif %}
+                 {% endif %}
 
-                        {% endif %}
-               {% endif %}
+
+               {% else %}
+
+                {# this is external page #}
+
+                   {% if Nodes.ParenNode == (0) %}
+
+                       {% set internal_page_has_child_menu= craft.Navigation.renderChildren(Nodes)|length %}
+
+                       {% if internal_page_has_child_menu > (0) %}
+                           <li class="{% if menucss.listClass is defined %} {{ menucss.listClass }} {% endif %}">
+                               <a href="{{ url(Nodes.menuUrl) }}">  {{ Nodes.NodeName }} </a>
+                               {{ macros.menu(Nodes) }}
+                           </li>
+                       {% else %}
+                           <li class="{% if menucss.listClass is defined %} {{ menucss.listClass }} {% endif %}">
+                               <a href="{{ Nodes.menuUrl }}" class="">{{ Nodes.NodeName }}</a>
+                           </li>
+                       {% endif %}
+
+                   {% endif %}
+
+
+                {% endif %}
+
+
            {% endfor %}
         {% endif %}
     {% endif %}
