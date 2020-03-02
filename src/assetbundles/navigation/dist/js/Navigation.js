@@ -32,9 +32,10 @@ New menu from Entries list.
             onSelect: function (element) {
                 min = Math.ceil(1);
                 max = Math.floor(1000);
-                $uniqueId= Math.floor(Math.random() * (max - min)) + min;
+
 
                 for(var $i=0;$i<element.length;$i++) {
+                    $uniqueId= Math.floor(Math.random() * (max - min)) + min;
                         var $moveicon = $("<a>").addClass("move icon").attr({title: "Reorder", role: "button"});
                         var $listitem = $("<li>").addClass("mjs-nestedSortable-branch mjs-nestedSortable-expanded").attr({
                             id: "menuItem_" + element[$i].id,
