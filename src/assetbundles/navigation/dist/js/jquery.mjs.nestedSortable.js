@@ -787,6 +787,7 @@
 				if (id) {
 					var data = $(item).children('div').data();
 					var $MenUurl;
+					var uniqueid;
 					if($(item)[0].attributes.hasOwnProperty('url'))
                     {
                         $MenUurl = $(item)[0].attributes.url.value;
@@ -795,6 +796,14 @@
                     {
                         $MenUurl='';
                     }
+                    if($(item).data('datauniqueid'))
+					{
+						uniqueid=$(item).data('datauniqueid');
+					}
+                    else
+					{
+						uniqueid=null;
+					}
 					var itemObj = $.extend( data, {
 						"id":id[2],
 						"parent_id":pid,
@@ -802,7 +811,8 @@
 						"left":_left,
                         "title" : ($(item)[0].title) ,
 						"right":right,
-						"url" : $MenUurl
+						"url" : $MenUurl,
+						"UniqueId":uniqueid
 						} );
 					ret.push( itemObj );
 				}

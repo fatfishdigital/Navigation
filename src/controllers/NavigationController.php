@@ -65,11 +65,10 @@
             $this->NavigationNodeModel = new NavigationNodeModel();
             if(Craft::$app->request->isAjax)
             {
-
             $this->model->siteId = Craft::$app->request->getBodyParam('menuname')[0]['siteId'];
             $this->model->MenuName = Craft::$app->request->getBodyParam('menuname')[0]['menuname'];
             $this->model->MenuHtml = Craft::$app->request->getBodyParam('menuhtml');
-            $UniqueId=Craft::$app->request->getBodyParam('UniqueId');
+            $UniqueId=str_replace('data_','',Craft::$app->request->getBodyParam('UniqueId'));
             $MenuItems=  Craft::$app->request->getBodyParam('menuArray'); //fetch html structure of menu from ajax request
             $MenuId= Navigation::$plugin->navigationService->saveNavigation($this->model,Craft::$app->request->getBodyParam('id'));
              if($this->FindNodeMenuItem($MenuItems,$MenuId,$UniqueId))
@@ -98,7 +97,7 @@
                    $this->NavigationNodeModel->menuId = $MenuId;
                    $this->NavigationNodeModel->menuUrl = $menuItem['url'];
                    $this->NavigationNodeModel->MenuOrder = array_search($menuItem,$menuItems);
-                   $this->NavigationNodeModel->UniqueId =$UID;
+                   $this->NavigationNodeModel->UniqueId =str_replace('data_','',$menuItem['UniqueId']);
                      if($this->NavigationNodeModel->validate())
                     {
                       Navigation::$plugin->navigationService->SaveNodeElement($this->NavigationNodeModel);

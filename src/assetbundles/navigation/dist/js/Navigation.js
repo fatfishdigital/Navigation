@@ -35,14 +35,12 @@ New menu from Entries list.
                 $uniqueId= Math.floor(Math.random() * (max - min)) + min;
 
                 for(var $i=0;$i<element.length;$i++) {
-                        // var $tr = $("<tr>");
-                        // var $td = $("<td>");
                         var $moveicon = $("<a>").addClass("move icon").attr({title: "Reorder", role: "button"});
                         var $listitem = $("<li>").addClass("mjs-nestedSortable-branch mjs-nestedSortable-expanded").attr({
                             id: "menuItem_" + element[$i].id,
                             title: element[$i].label,
                             style: "display:list-item",
-                            dataUniqueId:"data_"+$uniqueId
+                            "data-dataUniqueId":"data_"+$uniqueId
                         });
                         var $menuDiv = $("<div>").addClass("element small hasstatus menuDiv");
                         var $editlink = $("<a>").addClass("menusettings").attr({
@@ -90,6 +88,7 @@ New menu from Entries list.
         }
         var $postData = [{menuname:$('#menuname').val(),siteId:Craft.siteId}];
         var $SerializedMenu = $('ol.sortable').nestedSortable('toArray');
+        debugger;
         var $id= $('#menuid').val();
         var $htmlmenu=$.trim($('#navigation-menu').html());
             Craft.postActionRequest(Craft.baseSiteUrl+'craftnavigation/save',{menuname:$postData,menuArray:$SerializedMenu,id:$id,menuhtml:$htmlmenu,UniqueId:$uniqueId},function (response, status) {
@@ -164,7 +163,7 @@ Custom menu
                 $('#MenuBtn').on('click', function () {
                     $('.namelabel').html($('#name').val());
                     $menuname.val($('#name').val());
-
+debugger;
                     Craft.postActionRequest(Craft.baseSiteUrl+'craftnavigation/menusave',{data:$('#name').val(),siteid:Craft.siteId},function (response,status) {
                                     if(status=="success")
                         {
@@ -338,7 +337,6 @@ function updateNode(e)
     $url = $($id).attr('url');
     $formBody = $('<div class="modal fitted"/>');
     $($formElement).appendTo($formBody);
-    debugger;
     $modal = new Garnish.Modal($formBody, {
         onShow: function () {
 
@@ -351,8 +349,9 @@ function updateNode(e)
             }
            var $CustomButton = $('#BtnCustomUrl');
             $CustomButton.on('click', function () {
+
                $(e).text($('#name').val());
-               $(e).attr('title',$('#name').val());
+               $(e).parent().parent().parent().attr('title',$('#name').val());
                $(e).attr('url',$('#url').val());
                $modal.hide();
                $modal.destroy();
