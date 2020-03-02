@@ -34,8 +34,9 @@
         {
 
             $id=$NodeId->NodeId;
+            $menuid=$NodeId->menuId;
 
-          return Navigation::$plugin->navigationService->GetChild($id);
+          return Navigation::$plugin->navigationService->GetChild($id,$menuid);
 
         }
 

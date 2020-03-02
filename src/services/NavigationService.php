@@ -214,11 +214,11 @@ class NavigationService extends Component
      * @return mixed
      * finds children of a particular menu with parenNode
      */
-    public function GetChild($nodeId)
+    public function GetChild($nodeId,$menuId)
     {
 
         $NavigationNodeElementRecord = new NavigationNodeElemenetRecord();
-       return $NavigationNodeElementRecord::find()->where(['ParenNode'=>(int)$nodeId])->orderBy(['MenuOrder'=>'asc'])->all();
+       return $NavigationNodeElementRecord::find()->where(['ParenNode'=>(int)$nodeId,'menuId'=>$menuId])->orderBy(['MenuOrder'=>'asc'])->all();
     }
     /*
      * param Navigation Model
