@@ -56,7 +56,8 @@ New menu from Entries list.
                             role: "button",
                             id: "menuItem_" + element[$i].id,
                             onclick: 'removeMenuNode($(this))',
-                            style: 'position:relative;left:10px;'
+                            style: 'position:relative;left:10px;',
+                            "data-uid":$uniqueId
                         });
                         $listitem.append($moveicon);
                         $menuDiv.append($menulabel);
@@ -295,8 +296,8 @@ function removeMenuNode($this) {
         onShow:function () {
             $('#Delete').on('click',function () {
                 $id='#'+$this.attr('id');
-                Craft.postActionRequest(Craft.baseSiteUrl+'craftnavigation/deletenode',{id:$this.attr('id')});
-                $($id).remove();
+                Craft.postActionRequest(Craft.baseSiteUrl+'craftnavigation/deletenode',{id:$this.data('uid')});
+                $($this).parent().parent().remove();
                 var $menuId = $('#menuid').val();
                 var $postData = [{menuname:$('#menuname').val(),siteId:Craft.siteId}];
                 var $SerializedMenu = $('ol.sortable').nestedSortable('toArray');
