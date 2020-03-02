@@ -142,7 +142,7 @@
         }
 
         /**
-         *
+         * Menu item deletion
          */
         public function actionMenunodedelete()
         {
@@ -151,14 +151,19 @@
 
                 $MenuNode = new NavigationNodeElemenetRecord();
                 $NodeId = (int)str_replace('menuItem_','',Craft::$app->request->getBodyParam('id'));
-                $MenuId = (int)str_replace('menuItem_','',Craft::$app->request->getBodyParam('menuId'));
+                $MenuId = (int)str_replace('menuItem_','',Craft::$app->request->getBodyParam('menuid'));
+                /*
+                 * check whether this has child or not
+                 */
+                $Current_MenuNode_Id=$MenuNode::findOne(['UniqueId'=>$NodeId,'menuId'=>$MenuId]);
+               $this->Has_chidrens($Current_MenuNode_Id->NodeId,$MenuId,$NodeId); // check if this menu has children
                  if($MenuNode::deleteAll(['UniqueId'=>$NodeId]))
                {
                    echo true;
                    exit();
                }
                return false;
-exit();
+                exit();
             }
 
         }
@@ -192,5 +197,17 @@ exit();
                 echo true;
                 exit();
             }
+        }
+        public function Has_chidrens($NodeId,$MenuId,$UniqueId)
+        {
+            $MenuNode = new NavigationNodeElemenetRecord();
+
+            $Node_child_list= $MenuNode::findOne(['menuId'=>$MenuId,'ParenNode'=>$NodeId]);
+           if(isset($Node_child_list->NodeId) || !empty($Node_child_list->NodeId))
+           {
+               $MenuNode::deleteAll(['menuId'=>$MenuId,'ParenNode'=>$NodeId]);
+               $Current_MenuNode_Id=$MenuNode::findOne(['UniqueId'=>$NodeId,'menuId'=>$MenuId]);
+               $this->Has_chidrens($Current_MenuNode_Id->NodeId,$MenuId,$NodeId); // check if this
+           }
         }
     }

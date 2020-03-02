@@ -297,14 +297,14 @@ function removeMenuNode($this) {
         onShow:function () {
             $('#Delete').on('click',function () {
                 $id='#'+$this.attr('id');
-                Craft.postActionRequest(Craft.baseSiteUrl+'craftnavigation/deletenode',{id:$this.data('uid')});
-                $($this).parent().parent().remove();
+                Craft.postActionRequest(Craft.baseSiteUrl+'craftnavigation/deletenode',{id:$this.data('uid'),menuid:$('#menuid').val()});
+                    $($this).parent().parent().remove();
                 var $menuId = $('#menuid').val();
                 var $postData = [{menuname:$('#menuname').val(),siteId:Craft.siteId}];
                 var $SerializedMenu = $('ol.sortable').nestedSortable('toArray');
                 var $id= $('#menuid').val();
                 var $htmlmenu=$.trim($('#navigation-menu').html());
-                Craft.postActionRequest(Craft.baseSiteUrl+'craftnavigation/save',{menuname:$postData,menuArray:$SerializedMenu,menuId:$menuId,id:$id,menuhtml:$htmlmenu});
+                // Craft.postActionRequest(Craft.baseSiteUrl+'craftnavigation/save',{menuname:$postData,menuArray:$SerializedMenu,menuId:$menuId,id:$id,menuhtml:$htmlmenu});
                 $DeleteNodeModal.hide();
                 $DeleteNodeModal.destroy();
             });
