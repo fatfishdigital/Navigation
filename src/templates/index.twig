@@ -224,6 +224,28 @@ Create New Menu dialog box
 
 
     </script>
+
+    <script id="remove_nodes" type="text/template">
+
+        <div class="body">
+            <div class="field" id="node__url-name">
+                <div class="heading">
+                    <label class="required" for="name">{{ 'Do you want to remove this menu items ?' }}</label>
+                </div>
+
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="buttons right">
+                <input type="button" class="btn submit" value="{{ 'Cancel'|t('app') }}" id="exit">
+                <input type="submit" class="btn submit" value="{{ 'Delete'|t('app') }}" id="Delete">
+            </div>
+        </footer>
+
+
+
+    </script>
+
     <script id="DeleteMenu" type="text/template">
         <div class="body">
             Are you sure you want to delete ?
@@ -237,7 +259,7 @@ Create New Menu dialog box
         </footer>
 
     </script>
-    
+
     <script id="EditMenuName" type="text/template">
         <div class="body">
             <div class="field" id="node__url-name">
@@ -272,7 +294,7 @@ Create New Menu dialog box
         tabSize: 25,
         tolerance: 'pointer',
         toleranceElement: '> div',
-        maxLevels: 4,
+        maxLevels: 5,
         isTree: true,
         expandOnHover: 700,
         startCollapsed: false

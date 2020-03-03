@@ -290,7 +290,15 @@ Remove menu from list.
  */
 function removeMenuNode($this) {
   var  $Modal = $('<div class="modal fitted"/>');
-  var  $deletenode = $('#remove_node').html();
+  var children_node_size=$($this).parent().next().length;
+if(children_node_size>0)
+{
+    var  $deletenode = $('#remove_nodes').html();
+}else {
+    var  $deletenode = $('#remove_node').html();
+}
+
+
    $Modal.append($deletenode);
    var  $DeleteNodeModal = new Garnish.Modal($Modal,{
 
