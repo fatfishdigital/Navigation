@@ -2,7 +2,7 @@
     "name": "fatfish/navigation",
     "description": "Craft navigation for the website.",
     "type": "craft-plugin",
-    "version": "1.0.8.9-beta",
+    "version": "1.0.8.10-beta",
     "keywords": [
         "craft",
         "cms",

@@ -179,3 +179,7 @@ a.edit.icon.EditNav:hover
     font-weight: 500;
     color: white;
 }
+#savemenu:hover
+{
+    background-image: linear-gradient(#bf503f, #b34b3b);
+}
