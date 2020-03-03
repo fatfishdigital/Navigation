@@ -173,6 +173,9 @@ a.edit.icon.EditNav:hover
 }
 #savemenu
 {
-    background-color: #E5422B !important;
+
+    background-image: linear-gradient(#da5a47, #cc5643);
+    -webkit-font-smoothing: antialiased;
+    font-weight: 500;
     color: white;
 }
