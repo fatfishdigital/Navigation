@@ -57,7 +57,7 @@ Inorder to achieve this you need to use **craft.Navigation.getRawNav(MenuName)**
 This will let you build your own HTML menu with Twig Macros. 
 
 Sample custom menu:
-
+```twig
 {% import _self as macros %}
 {% macro menu(node,menuId) %}
     {% import _self as macros %}
@@ -113,6 +113,6 @@ Sample custom menu:
 {% else %}
  {% endif %}
 </ul>
-
+```
 
 Brought to you by [Fatfish](https://fatfish.com.au)
